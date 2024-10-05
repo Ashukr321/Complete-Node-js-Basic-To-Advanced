@@ -9,9 +9,12 @@ Node.js is a JavaScript runtime environment that allows developers to create sca
 
 Node.js is often used for building server-side applications, web servers, APIs, and real-time applications.
 ![img.png](img.png)
+
 ![img_2.png](Resources/img_2.png)
+
 ![img_3.png](Resources/img_4.png)
-# Core Node js Module 
+
+## Core Node js Module 
 ![img_3.png](Resources/img_3.png)
 
 
@@ -26,12 +29,28 @@ Node.js is often used for building server-side applications, web servers, APIs, 
 - [readFileSync()](https://www.geeksforgeeks.org/node-js-fs-readfilesync-method/)
 - [sychronous code](https://www.geeksforgeeks.org/blocking-and-non-blocking-in-node-js/)
 
-# NodeJs Architecture 🔥
+## NodeJs Architecture 🔥
 ![img_5.png](Resources/img_5.png)
+
+![img_6.png](Resources/img_6.png)
+## Event Loop  
+* Event loop does Orchestration
+
+![img_7.png](Resources/img_7.png)
+## Event Loop In Details 🚀
+![img_8.png](Resources/img_8.png)
+
+![img_9.png](Resources/img_9.png)
+
 ![Logo](https://cdn.buttercms.com/0Nh1yR6SSPwqnsKYSfHa)
 
+## Event Driven Architecture 🔥
 
+![img_10.png](Resources/img_10.png)
+# Node Stream 💦
+![img_11.png](Resources/img_11.png)
 
+![img_12.png](Resources/img_12.png)
 ## Important  Node js Questions
 
     1.	What is the chrome js engine name ? 
