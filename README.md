@@ -37,6 +37,7 @@ Node.js is often used for building server-side applications, web servers, APIs, 
 - [npm ](https://www.geeksforgeeks.org/node-js-npm-node-package-manager/)
 - [Garbage collection](https://codedamn.com/news/nodejs/garbage-collection-explained)
 - [Node process Object](https://jscomplete.com/learn/complete-intro-nodejs/1ni-process-object#:~:text=The%20process%20object%20is%20a,production%2C%20you%20can%20use%20process.)
+- [middleware](https://www.ibm.com/topics/middleware)
 - 
 ## NodeJs Architecture 🔥
 ![img_5.png](Resources/img_5.png)
@@ -108,6 +109,33 @@ Express is designed to simplify the backend application development with a robus
     npm run start
 
 ## Important  Dependencies 🧑‍💻
+### Node.js nodemon npm Module
+The nodemon npm Module is a module that develop node.js based applications by automatically restarting the node application when file changes in the directory are detected. Nodemon does not require any change in the original code and method of development.
+
+    npm install -g nodemon
+### check the current version of the module
+    nodemon version
+##  body-parser
+Parse incoming request bodies in a middleware before your handlers, available under the
+    req.body 
+
+    npm i body-parser
+## cors
+* The CORS (Cross-Origin Resource Sharing) npm module is a Node.js package that enables cross-origin resource sharing for Express.js applications.
+* It allows web pages to make requests to a different origin (domain, protocol, or port) than the one the web page was loaded from, which is a restriction imposed by the same-origin policy.
+#
+    npm i cors
+#
+    app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    headers: ['Content-Type', 'Authorization']
+    }));
+
+## dotenv 
+Dotenv is a popular Node.js package that loads environment variables from a .env file into the process.env object. This allows you to separate sensitive or environment-specific configuration from your code and keep it organized in a single file.
+
+    npm install dotenv
 
 ## Important  Node js Questions
 
