@@ -272,6 +272,20 @@ Dotenv is a popular Node.js package that loads environment variables from a .env
     119.	Explain the purpose of the process object in node js ?
     120.	What is difference between the http and https modules in the node js 
     121.	How to change the size of the thread pool  in the node js ?
+    122.    How do you use Node.js clusters to improve performance?
+    123.    How do you secure a Node.js application from common web vulnerabilities?
+    124.    What are some best practices for handling sensitive data in a Node.js application?
+    125.    How do you implement authentication and authorization in a Node.js application?
+    126.    How do you integrate a Node.js application with a relational database?
+    127.    What are some best practices for using MongoDB with Node.js?
+    128.    How do you use an ORM like Sequelize with Node.js?
+    129.    How do you design a microservices architecture using Node.js?
+    130.    How do you write unit tests and integration tests for a Node.js application?
+    131.    What are some best practices for debugging a Node.js application?
+    132.    How do you deploy a Node.js application to a cloud platform like AWS or Google Cloud?
+    133.    What are some best practices for scaling a Node.js application horizontally and vertically?
+    134.    How do you use containerization with Docker and Kubernetes to deploy and scale a Node.js application?
+
 
 ## Authors
 
