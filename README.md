@@ -21,14 +21,23 @@ Node.js is often used for building server-side applications, web servers, APIs, 
 ## Quick Reference 📔
 
 - [js Engine ](https://v8.dev/docs)
-- [ server side web applicaton](https://www.fullstackfoundations.com/blog/client-side-vs-server-side)
+- [ server side web application](https://www.fullstackfoundations.com/blog/client-side-vs-server-side)
 - [benefits of using node js ?](https://www.geeksforgeeks.org/the-pros-and-cons-of-node-js-in-web-development/#google_vignette)
 - [core modules](https://nodejs.org/api/documentation.html)
 - [repl](https://www.geeksforgeeks.org/how-to-use-node-js-repl/)
 - [run node js file](https://nodejs.org/en/learn/command-line/run-nodejs-scripts-from-the-command-line)
 - [readFileSync()](https://www.geeksforgeeks.org/node-js-fs-readfilesync-method/)
-- [sychronous code](https://www.geeksforgeeks.org/blocking-and-non-blocking-in-node-js/)
-
+- [synchronous code](https://www.geeksforgeeks.org/blocking-and-non-blocking-in-node-js/)
+- [server side web application ](https://dev.to/dharamgfx/dive-into-server-side-website-programming-from-basics-to-mastery-255f)
+- [HTTP Methods ](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
+- [DNS](https://www.geeksforgeeks.org/working-of-domain-name-system-dns-server/)
+- [static vs Dynamic website](https://www.geeksforgeeks.org/static-vs-dynamic-website/)
+- [Api](https://www.ibm.com/topics/api)
+- [stateful and stateless applications ](https://www.redhat.com/en/topics/cloud-native-apps/stateful-vs-stateless)
+- [npm ](https://www.geeksforgeeks.org/node-js-npm-node-package-manager/)
+- [Garbage collection](https://codedamn.com/news/nodejs/garbage-collection-explained)
+- [Node process Object](https://jscomplete.com/learn/complete-intro-nodejs/1ni-process-object#:~:text=The%20process%20object%20is%20a,production%2C%20you%20can%20use%20process.)
+- 
 ## NodeJs Architecture 🔥
 ![img_5.png](Resources/img_5.png)
 
@@ -51,6 +60,55 @@ Node.js is often used for building server-side applications, web servers, APIs, 
 ![img_11.png](Resources/img_11.png)
 
 ![img_12.png](Resources/img_12.png)
+
+## Top Node js Frameworks 
+### Express.js
+* Express.js is the most popular and minimalistic web framework for Node.js. 
+Express is designed to simplify the backend application development with a robust set of features including routing, middleware, error handling, and templating.
+### Nest.js
+* Nest.js is a progressive framework for Node.js for building server-side applications with JavaScript and TypeScript. 
+* Nest.js follows a modular architecture enabling developers to create complex applications by organizing components into separate, independent modules, ensuring maintainability and reusability across various parts of the application.
+### Realtime Node.js Frameworks
+* Realtime frameworks provide features and functions to enable simplified development of realtime applications. Realtime applications require realtime flow of information, like with instant messaging or for data analytics dashboards. Here are some of the best realtime Node.js frameworks to consider:
+
+* Socket.IO: Socket.IO is a Node.js framework built on top of WebSockets that enables realtime client-server communication. Socket.IO is event-driven and compatible with older browsers and environments.
+
+## Express installation
+### Step 1: Install Express.js
+    npm install express
+### Step 2: Create a New File
+
+    const express = require('express');
+    const app = express();
+    
+    // Define a route for the root URL ('/') that returns 'Hello World!'
+    app.get('/', (req, res) => {
+    res.send('Hello World!');
+    });
+    
+    // Start the server
+    const port = 3000;
+    app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
+    });
+### Step 3: Run the Server
+    node app.js
+#
+
+## Installing NestJS
+- [Nest js  Docs 📔 ](https://nestjs.com/)
+### Step 1: Install Node.js
+### Step 2: Install NestJS CLI
+    npm install -g @nestjs/cli
+### Step 3: Create a New Project
+    nest new project-name
+### Step 4: Install Dependencies
+    npm install
+### Step 5: Start the Development Server
+    npm run start
+
+## Important  Dependencies 🧑‍💻
+
 ## Important  Node js Questions
 
     1.	What is the chrome js engine name ? 
