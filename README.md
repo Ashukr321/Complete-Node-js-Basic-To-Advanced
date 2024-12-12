@@ -19,7 +19,7 @@ Node.js is often used for building server-side applications, web servers, APIs, 
 
 
 ## Quick Reference 📔
-
+- [Pm2](https://www.npmjs.com/package/pm2)
 - [js Engine ](https://v8.dev/docs)
 - [ server side web application](https://www.fullstackfoundations.com/blog/client-side-vs-server-side)
 - [benefits of using node js ?](https://www.geeksforgeeks.org/the-pros-and-cons-of-node-js-in-web-development/#google_vignette)
@@ -137,6 +137,32 @@ Dotenv is a popular Node.js package that loads environment variables from a .env
 
     npm install dotenv
 
+
+## Pm2 
+PM2 is a production process manager for Node.js applications with a built-in load balancer
+
+* Application run Forever unit we stop manually 🚀
+
+
+Installation ⭐⭐
+
+    npm install pm2 -g
+
+To list all running applications:
+
+    pm2 list
+
+To check Version 
+
+    pm2 --version
+To start server
+
+    pm2 start app.js
+
+
+
+
+    
 ## Important  Node js Questions
 
     1.	What is the chrome js engine name ? 
