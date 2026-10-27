@@ -8,6 +8,8 @@
 ☐ path.extname();
 ☐ path.parse();
 ☐ path.isAbsolute();
+☐ path.basename();
+  
 
 note * inside module js , __dirname not work we have alternate approach to get the current files folder absolute path
 */
