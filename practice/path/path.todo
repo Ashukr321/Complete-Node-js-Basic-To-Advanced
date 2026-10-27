@@ -6,6 +6,7 @@
 ☐ path.extname();
 ☐ path.parse();
 ☐ path.isAbsolute();
+☐ path.basename();
 
 
 

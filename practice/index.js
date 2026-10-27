@@ -1,4 +1,4 @@
-import { showPathResult, showAbsolutePath, createUploadedFiles, getComponentsOfPath, isAbsolutePath } from "./path/path.js";
+import { showPathResult, showAbsolutePath, createUploadedFiles, getComponentsOfPath, isAbsolutePath, getBaseName } from "./path/path.js";
 
 console.log("\n")
 console.log("show path.join , multiple segments")
@@ -17,3 +17,4 @@ createUploadedFiles();
 
 getComponentsOfPath();
 isAbsolutePath();
+getBaseName();

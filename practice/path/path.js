@@ -59,7 +59,12 @@ const isAbsolutePath = () => {
     console.log(path.isAbsolute(absolutePath));// true or false; 
 }
 
-export { showPathResult, showAbsolutePath, createUploadedFiles, getComponentsOfPath, isAbsolutePath };
+const getBaseName = () => {
+    const result = path.basename(path.resolve(__dirname + "path.js"));
+    console.log(result);
+}
+
+export { showPathResult, showAbsolutePath, createUploadedFiles, getComponentsOfPath, isAbsolutePath, getBaseName };
 
 
 
