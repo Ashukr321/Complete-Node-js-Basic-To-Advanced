@@ -1,0 +1,22 @@
+☐ path.join()
+☐ path.resolve()
+☐ process.cwd(); 
+☐ fileUrlToPath(import.meta.url);
+☐ path.dirname()
+☐ path.extname();
+☐ path.parse();
+☐ path.isAbsolute();
+
+
+
+
+
+
+
+
+senario : use case
+
+Scenario 1: User ke uploaded files ka path banana
+Maan lo tum backend mein profile pictures upload kar rahe ho.
+
+upload/profile
