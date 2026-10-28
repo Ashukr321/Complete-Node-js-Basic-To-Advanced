@@ -39,13 +39,11 @@ const createDirectory = () => {
 // delete dir ;
 const deleteDir = () => {
     // here we use recursive bec  ,might be inside folder contains multiple sub directory and folder with recursive we are able to delete all file and folder 
-
     fs.mkdir("asyncFolder/hello", (err) => {
         if (!err) {
             console.log("nested folder and files are created successfuly!");
         }
     })
-
 
     setTimeout(() => {
         fs.rm("asyncFolder", { recursive: true }, (err) => {
@@ -57,24 +55,31 @@ const deleteDir = () => {
 }
 
 
+const readingFile = () => {
+    fs.readFile("file.txt", "utf-8", (err, data) => {
+        if (err) {
+            console.log("something went wrong"
+                || err.message
+            )
+        }
+        console.log("file read successfuly!")
+        console.log(data);
+    })
+}
 
-export { createFile, createDirectory, deleteDir }
-
+export { createFile, createDirectory, deleteDir, readingFile }
 
 // fs.writeFile()
 
 // File create karta hai ya existing file ka content overwrite karta hai.
 
 //     fs.writeFileSync()
-
 // File synchronously create ya overwrite karta hai.
 
 //     fs.appendFile()
-
 // Existing file ke end mein data add karta hai.
 
 //     fs.appendFileSync()
-
 // File ke end mein data synchronously add karta hai.
 
 //     fs.unlink()
@@ -136,3 +141,4 @@ export { createFile, createDirectory, deleteDir }
 //     fs.watch()
 
 // File ya folder mein changes observe karta <hai className=""></hai>
+

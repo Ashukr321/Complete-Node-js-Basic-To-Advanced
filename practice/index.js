@@ -1,11 +1,12 @@
 //file
 // imports
-import { createFile, createDirectory, deleteDir } from './file/file.js';
+import { createFile, createDirectory, deleteDir, readingFile } from './file/file.js';
 
 createFile();
 createDirectory();
 deleteDir();
 
+readingFile();
 
 
 
