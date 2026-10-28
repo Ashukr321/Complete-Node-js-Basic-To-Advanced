@@ -1,20 +1,65 @@
-import { showPathResult, showAbsolutePath, createUploadedFiles, getComponentsOfPath, isAbsolutePath, getBaseName } from "./path/path.js";
+//file
+// imports
+import { createFile, createDirectory, deleteDir } from './file/file.js';
 
-console.log("\n")
-console.log("show path.join , multiple segments")
-showPathResult();
-console.log("\n")
-
-console.log("-------------------------------")
-console.log("\n")
-console.log("show abosulte path of files ")
-
-showAbsolutePath();
-console.log("\n")
+createFile();
+createDirectory();
+deleteDir();
 
 
-createUploadedFiles();
 
-getComponentsOfPath();
-isAbsolutePath();
-getBaseName();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // path module ;
+// import { showPathResult, showAbsolutePath, createUploadedFiles, getComponentsOfPath, isAbsolutePath, getBaseName } from "./path/path.js";
+
+// console.log("\n")
+// console.log("show path.join , multiple segments")
+// showPathResult();
+// console.log("\n")
+
+// console.log("-------------------------------")
+// console.log("\n")
+// console.log("show abosulte path of files ")
+
+// showAbsolutePath();
+// console.log("\n")
+
+
+// createUploadedFiles();
+
+// getComponentsOfPath();
+// isAbsolutePath();
+// getBaseName();
+
+
