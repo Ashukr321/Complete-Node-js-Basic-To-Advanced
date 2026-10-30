@@ -1,0 +1,277 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 922" width="1400" height="922" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<title>Node Process and Threads</title>
+<desc>Auto-playing 72s step-by-step explainer of "Node Process and Threads" (from img_6.png). Each step is highlighted in turn with what happens, why it matters, missing concepts added in lime, and a Node.js code example. Hover to pause.</desc>
+<style>
+.scene,.hl{opacity:0;animation:show 72s linear infinite}
+@keyframes show{0%{opacity:0}0.694%{opacity:1}10.417%{opacity:1}11.111%{opacity:0}100%{opacity:0}}
+@keyframes tok{0%{transform:translate(51px,132px)}11.111%{transform:translate(51px,132px)}12.500%{transform:translate(51px,132px)}22.222%{transform:translate(51px,132px)}23.611%{transform:translate(394.75px,132px)}33.333%{transform:translate(394.75px,132px)}34.722%{transform:translate(738.5px,132px)}44.444%{transform:translate(738.5px,132px)}45.833%{transform:translate(1082.25px,132px)}55.556%{transform:translate(1082.25px,132px)}56.944%{transform:translate(1082.25px,336px)}66.667%{transform:translate(1082.25px,336px)}68.056%{transform:translate(738.5px,336px)}77.778%{transform:translate(738.5px,336px)}79.167%{transform:translate(394.75px,336px)}88.889%{transform:translate(394.75px,336px)}90.278%{transform:translate(51px,132px)}100%{transform:translate(51px,132px)}}
+@keyframes flow{to{stroke-dashoffset:-16}}
+@keyframes pulse{0%,100%{r:15;opacity:.9}50%{r:21;opacity:.35}}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.token{animation:tok 72s ease-in-out infinite}
+.token .ring{animation:pulse 1.4s ease-in-out infinite}
+.flow{stroke-dasharray:8 8;animation:flow .8s linear infinite}
+.bar{transform-box:fill-box;transform-origin:left;animation:bar 72s linear infinite}
+svg:hover *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#scene0{opacity:1}}
+.t{fill:#e2e8f0}.m{fill:#94a3b8}.b{font-size:12.5px;fill:#cbd5e1}.nw{font-size:12.5px;fill:#a3e635;font-weight:600}
+.code{font-family:'Cascadia Code',Consolas,ui-monospace,monospace;font-size:12.5px;fill:#e2e8f0;white-space:pre}
+.body{font-size:14.5px;fill:#cbd5e1}.lbl{font-weight:700}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#0f1f1a"/></linearGradient>
+<linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#5fa04e"/><stop offset=".5" stop-color="#22d3ee"/><stop offset="1" stop-color="#a3e635"/></linearGradient>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker>
+</defs>
+<rect width="1400" height="922" fill="#070b16"/><rect x="6" y="6" width="1388" height="910" rx="22" fill="url(#bg)" stroke="#1f4d3a"/>
+<polygon points="44,28 60,37 60,55 44,64 28,55 28,37" fill="#5fa04e"/><text x="44" y="51" font-size="12" font-weight="800" fill="#0b1224" text-anchor="middle">06</text>
+<text x="74" y="54" font-size="28" font-weight="800" class="t">Node Process and Threads</text>
+<text x="30" y="84" font-size="14" class="m">What happens on the single thread when you run node app.js, and when work is offloaded to the thread pool</text>
+<g font-size="12.5" class="m"><circle cx="1170" cy="44" r="9" fill="none" stroke="#fff" stroke-width="2"/><text x="1186" y="48">current step</text>
+<text x="1160" y="74" fill="#a3e635" font-weight="700">+ added concept</text><text x="1290" y="74">· hover = pause</text></g>
+<line x1="346.75" y1="181" x2="363.75" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="690.5" y1="181" x2="707.5" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1034.25" y1="181" x2="1051.25" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1215.625" y1="262" x2="1215.625" y2="302" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1053.25" y1="385" x2="1036.25" y2="385" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<text x="1044.75" y="376" font-size="10" class="m" text-anchor="middle">offloading</text>
+<line x1="709.5" y1="385" x2="692.5" y2="385" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<rect x="25" y="104" width="318.75" height="154" rx="12" fill="#c084fc" fill-opacity=".07" stroke="#c084fc" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:8s" x="25" y="104" width="318.75" height="154" rx="12" fill="#c084fc" fill-opacity=".12" stroke="#c084fc" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="132" r="13" fill="#c084fc"/><text x="51" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">1</text>
+<text x="73" y="138" font-size="16.5" font-weight="700" class="t">Initialize program</text>
+<text x="73" y="158" font-size="11" letter-spacing=".5" fill="#c084fc" font-weight="600">STARTUP</text>
+<circle cx="43" cy="184" r="2.6" fill="#c084fc"/>
+<text x="53" y="188" class="b">Process starts (1 PID)</text>
+<circle cx="43" cy="201.5" r="2.6" fill="#c084fc"/>
+<text x="53" y="205.5" class="b">V8 + libuv boot up</text>
+<text x="38" y="223" class="nw">+ process.argv / env</text>
+<rect x="368.75" y="104" width="318.75" height="154" rx="12" fill="#fbbf24" fill-opacity=".07" stroke="#fbbf24" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:16s" x="368.75" y="104" width="318.75" height="154" rx="12" fill="#fbbf24" fill-opacity=".12" stroke="#fbbf24" stroke-width="3" filter="url(#glow)"/>
+<circle cx="394.75" cy="132" r="13" fill="#fbbf24"/><text x="394.75" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">2</text>
+<text x="416.75" y="138" font-size="16.5" font-weight="700" class="t">Top-level code</text>
+<text x="416.75" y="158" font-size="11" letter-spacing=".5" fill="#fbbf24" font-weight="600">SYNC</text>
+<circle cx="386.75" cy="184" r="2.6" fill="#fbbf24"/>
+<text x="396.75" y="188" class="b">Code not inside callbacks</text>
+<circle cx="386.75" cy="201.5" r="2.6" fill="#fbbf24"/>
+<text x="396.75" y="205.5" class="b">Runs once, top to bottom</text>
+<circle cx="386.75" cy="219" r="2.6" fill="#fbbf24"/>
+<text x="396.75" y="223" class="b">Sync is OK here</text>
+<rect x="712.5" y="104" width="318.75" height="154" rx="12" fill="#2dd4bf" fill-opacity=".07" stroke="#2dd4bf" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:24s" x="712.5" y="104" width="318.75" height="154" rx="12" fill="#2dd4bf" fill-opacity=".12" stroke="#2dd4bf" stroke-width="3" filter="url(#glow)"/>
+<circle cx="738.5" cy="132" r="13" fill="#2dd4bf"/><text x="738.5" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">3</text>
+<text x="760.5" y="138" font-size="16.5" font-weight="700" class="t">Require modules</text>
+<text x="760.5" y="158" font-size="11" letter-spacing=".5" fill="#2dd4bf" font-weight="600">LOAD</text>
+<circle cx="730.5" cy="184" r="2.6" fill="#2dd4bf"/>
+<text x="740.5" y="188" class="b">require() is synchronous</text>
+<circle cx="730.5" cy="201.5" r="2.6" fill="#2dd4bf"/>
+<text x="740.5" y="205.5" class="b">Runs each file once</text>
+<text x="725.5" y="223" class="nw">+ Then cached</text>
+<rect x="1056.25" y="104" width="318.75" height="154" rx="12" fill="#38bdf8" fill-opacity=".07" stroke="#38bdf8" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:32s" x="1056.25" y="104" width="318.75" height="154" rx="12" fill="#38bdf8" fill-opacity=".12" stroke="#38bdf8" stroke-width="3" filter="url(#glow)"/>
+<circle cx="1082.25" cy="132" r="13" fill="#38bdf8"/><text x="1082.25" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">4</text>
+<text x="1104.25" y="138" font-size="16.5" font-weight="700" class="t">Register callbacks</text>
+<text x="1104.25" y="158" font-size="11" letter-spacing=".5" fill="#38bdf8" font-weight="600">LISTEN</text>
+<circle cx="1074.25" cy="184" r="2.6" fill="#38bdf8"/>
+<text x="1084.25" y="188" class="b">server.on(&apos;request&apos;, fn)</text>
+<circle cx="1074.25" cy="201.5" r="2.6" fill="#38bdf8"/>
+<text x="1084.25" y="205.5" class="b">fs.readFile(..., cb)</text>
+<circle cx="1074.25" cy="219" r="2.6" fill="#38bdf8"/>
+<text x="1084.25" y="223" class="b">setTimeout(cb, 1000)</text>
+<rect x="1056.25" y="308" width="318.75" height="154" rx="12" fill="#818cf8" fill-opacity=".07" stroke="#818cf8" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:40s" x="1056.25" y="308" width="318.75" height="154" rx="12" fill="#818cf8" fill-opacity=".12" stroke="#818cf8" stroke-width="3" filter="url(#glow)"/>
+<circle cx="1082.25" cy="336" r="13" fill="#818cf8"/><text x="1082.25" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">5</text>
+<text x="1104.25" y="342" font-size="16.5" font-weight="700" class="t">Start event loop</text>
+<text x="1104.25" y="362" font-size="11" letter-spacing=".5" fill="#818cf8" font-weight="600">THE HEART</text>
+<circle cx="1074.25" cy="388" r="2.6" fill="#818cf8"/>
+<text x="1084.25" y="392" class="b">Runs callbacks as events come</text>
+<circle cx="1074.25" cy="405.5" r="2.6" fill="#818cf8"/>
+<text x="1084.25" y="409.5" class="b">Exits when nothing pending</text>
+<circle cx="1074.25" cy="423" r="2.6" fill="#818cf8"/>
+<text x="1084.25" y="427" class="b">Offloads heavy tasks</text>
+<rect x="712.5" y="308" width="318.75" height="154" rx="12" fill="#c084fc" fill-opacity=".07" stroke="#c084fc" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:48s" x="712.5" y="308" width="318.75" height="154" rx="12" fill="#c084fc" fill-opacity=".12" stroke="#c084fc" stroke-width="3" filter="url(#glow)"/>
+<circle cx="738.5" cy="336" r="13" fill="#c084fc"/><text x="738.5" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">6</text>
+<text x="760.5" y="342" font-size="16.5" font-weight="700" class="t">Thread pool</text>
+<text x="760.5" y="362" font-size="11" letter-spacing=".5" fill="#c084fc" font-weight="600">LIBUV</text>
+<circle cx="730.5" cy="388" r="2.6" fill="#c084fc"/>
+<text x="740.5" y="392" class="b">4 threads by default</text>
+<circle cx="730.5" cy="405.5" r="2.6" fill="#c084fc"/>
+<text x="740.5" y="409.5" class="b">fs, crypto, zlib, DNS lookup</text>
+<text x="725.5" y="427" class="nw">+ UV_THREADPOOL_SIZE</text>
+<text x="725.5" y="444.5" class="nw">+ Network ≠ thread pool</text>
+<rect x="368.75" y="308" width="318.75" height="154" rx="12" fill="#a3e635" fill-opacity=".07" stroke="#a3e635" stroke-opacity="1" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:56s" x="368.75" y="308" width="318.75" height="154" rx="12" fill="#a3e635" fill-opacity=".12" stroke="#a3e635" stroke-width="3" filter="url(#glow)"/>
+<circle cx="394.75" cy="336" r="13" fill="#a3e635"/><text x="394.75" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">7</text>
+<text x="416.75" y="342" font-size="16.5" font-weight="700" class="t">More than 1 thread</text>
+<text x="416.75" y="362" font-size="11" letter-spacing=".5" fill="#a3e635" font-weight="600">NEW · SCALE</text>
+<text x="381.75" y="392" class="nw">+ worker_threads: CPU work</text>
+<text x="381.75" y="409.5" class="nw">+ cluster / PM2: all cores</text>
+<text x="381.75" y="427" class="nw">+ child_process: other programs</text>
+<g class="token"><circle class="ring" r="15" fill="none" stroke="#fff" stroke-width="2"/></g>
+<rect x="25" y="496" width="1350" height="292" rx="14" fill="#0b1224" fill-opacity=".85" stroke="#334155"/>
+<rect x="790" y="512" width="568" height="246" rx="10" fill="#020617" stroke="#1e293b"/>
+<circle cx="808" cy="528" r="4.5" fill="#f87171"/><circle cx="823" cy="528" r="4.5" fill="#fbbf24"/><circle cx="838" cy="528" r="4.5" fill="#4ade80"/>
+<rect x="45" y="770" width="1310" height="4" rx="2" fill="#1e293b"/><rect class="bar" x="45" y="770" width="1310" height="4" rx="2" fill="url(#prog)"/>
+<g class="scene" id="scene0" style="animation-delay:0s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#e2e8f0">OVERVIEW</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Node Process and Threads</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> A Node process (a program running on the computer) has ONE main thread (a sequence of</text>
+<text x="48" y="604" class="body">instructions). It boots, runs your top-level code, then starts the event loop.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Knowing this order explains why top-level code runs first and why some tasks are</text>
+<text x="48" y="652" class="body">offloaded.</text>
+<text x="48" y="680" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> process info, require caching, how to resize the pool, and how to use more than one</text>
+<text x="48" y="700" class="body">thread (workers, cluster).</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">node app.js</text>
+<text x="808" y="558" class="code" xml:space="preserve"> NODE.JS PROCESS</text>
+<text x="808" y="573.5" class="code" xml:space="preserve"> └─ SINGLE THREAD</text>
+<text x="808" y="589" class="code" xml:space="preserve">     1. initialize program</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">     2. execute top-level code</text>
+<text x="808" y="620" class="code" xml:space="preserve">     3. require modules</text>
+<text x="808" y="635.5" class="code" xml:space="preserve">     4. register event callbacks</text>
+<text x="808" y="651" class="code" xml:space="preserve">     5. START EVENT LOOP ── offloading ──► THREAD POOL</text>
+<text x="808" y="666.5" class="code" xml:space="preserve">                                       [#1][#2][#3][#4]</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">1 / 9</text>
+</g>
+<g class="scene" id="scene1" style="animation-delay:8s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#c084fc">STEP 1 / 7 · STARTUP</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Initialize program</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Running "node app.js" starts a new OS process. Node boots V8 and libuv and prepares</text>
+<text x="48" y="604" class="body">the global objects.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> The process object describes the running program: its id, arguments, environment</text>
+<text x="48" y="652" class="body">variables and memory use.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">node app.js --port 4000</text>
+<text x="808" y="558" class="code" xml:space="preserve">console.log(process.pid);          // e.g. 18244</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">console.log(process.argv);         // [node, app.js, --port, 4000]</text>
+<text x="808" y="589" class="code" xml:space="preserve">console.log(process.env.NODE_ENV);</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">console.log(process.memoryUsage().heapUsed);</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">2 / 9</text>
+</g>
+<g class="scene" id="scene2" style="animation-delay:16s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#fbbf24">STEP 2 / 7 · SYNC</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Top-level code</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> All code that is not inside a callback runs immediately, once, top to bottom, before</text>
+<text x="48" y="604" class="body">any callback.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> That is why readFileSync at startup (loading config) is fine, but inside a request</text>
+<text x="48" y="652" class="body">handler it is not.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">order.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const fs = require(&apos;node:fs&apos;);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">console.log(&apos;A: top-level&apos;);</text>
+<text x="808" y="589" class="code" xml:space="preserve">setTimeout(() =&gt; console.log(&apos;C: timer&apos;), 0);</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">fs.readFile(__filename, () =&gt; console.log(&apos;D: I/O&apos;));</text>
+<text x="808" y="620" class="code" xml:space="preserve">console.log(&apos;B: still top-level&apos;);</text>
+<text x="808" y="635.5" class="code" xml:space="preserve"></text>
+<text x="808" y="651" class="code" xml:space="preserve">// Output: A, B, then C, D</text>
+<text x="808" y="666.5" class="code" xml:space="preserve">// callbacks wait until top-level code finishes</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">3 / 9</text>
+</g>
+<g class="scene" id="scene3" style="animation-delay:24s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#2dd4bf">STEP 3 / 7 · LOAD</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Require modules</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> require() loads and runs each module file synchronously, as part of startup.</text>
+<text x="48" y="612" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> A module runs only the first time; later require() calls return the cached</text>
+<text x="48" y="632" class="body">module.exports object.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">cache.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const a = require(&apos;./config&apos;);   // runs config.js</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">const b = require(&apos;./config&apos;);   // from cache</text>
+<text x="808" y="589" class="code" xml:space="preserve">console.log(a === b);            // true</text>
+<text x="808" y="604.5" class="code" xml:space="preserve"></text>
+<text x="808" y="620" class="code" xml:space="preserve">console.log(Object.keys(require.cache));</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">4 / 9</text>
+</g>
+<g class="scene" id="scene4" style="animation-delay:32s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#38bdf8">STEP 4 / 7 · LISTEN</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Register callbacks</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Your code registers callbacks: "when a request comes / the file is read / 1 s has</text>
+<text x="48" y="604" class="body">passed, call this". Nothing runs yet.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Registered callbacks are the work the event loop will do later.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">register.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">server.on(&apos;request&apos;, handle);   // when a request arrives</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">fs.readFile(&apos;a.txt&apos;, onFile);   // when the file is read</text>
+<text x="808" y="589" class="code" xml:space="preserve">setTimeout(onTimer, 1000);      // when 1 s has passed</text>
+<text x="808" y="604.5" class="code" xml:space="preserve"></text>
+<text x="808" y="620" class="code" xml:space="preserve">// nothing has run yet: these are just registered</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">5 / 9</text>
+</g>
+<g class="scene" id="scene5" style="animation-delay:40s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#818cf8">STEP 5 / 7 · THE HEART</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Start event loop</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Finally the event loop starts. It runs callbacks as events arrive and keeps going</text>
+<text x="48" y="604" class="body">while there is pending work.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> An open server socket is always pending, so a server never exits on its own.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">alive.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">setTimeout(() =&gt; console.log(&apos;tick&apos;), 1000);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">// prints &apos;tick&apos;, nothing left → process exits</text>
+<text x="808" y="589" class="code" xml:space="preserve"></text>
+<text x="808" y="604.5" class="code" xml:space="preserve">server.listen(3000);</text>
+<text x="808" y="620" class="code" xml:space="preserve">// open socket = always pending → stays alive</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">6 / 9</text>
+</g>
+<g class="scene" id="scene6" style="animation-delay:48s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#c084fc">STEP 6 / 7 · LIBUV</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Thread pool</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> libuv has extra threads (4 by default) for heavy ("expensive") tasks: file system</text>
+<text x="48" y="604" class="body">APIs, cryptography, compression and DNS lookups.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Resize it with UV_THREADPOOL_SIZE (max 1024). The demo shows the 5th hash waiting for</text>
+<text x="48" y="652" class="body">a free thread.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">pool-demo.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const crypto = require(&apos;node:crypto&apos;);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">const start = Date.now();</text>
+<text x="808" y="589" class="code" xml:space="preserve">for (let i = 1; i &lt;= 5; i++) {</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">  crypto.pbkdf2(&apos;pw&apos;, &apos;salt&apos;, 1e5, 512, &apos;sha512&apos;, () =&gt;</text>
+<text x="808" y="620" class="code" xml:space="preserve">    console.log(i, Date.now() - start, &apos;ms&apos;));</text>
+<text x="808" y="635.5" class="code" xml:space="preserve">}</text>
+<text x="808" y="651" class="code" xml:space="preserve">// 1-4 finish together (4 threads), 5 finishes later</text>
+<text x="808" y="666.5" class="code" xml:space="preserve">// UV_THREADPOOL_SIZE=5 → all 5 finish together</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">7 / 9</text>
+</g>
+<g class="scene" id="scene7" style="animation-delay:56s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">STEP 7 / 7 · NEW · SCALE</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">More than 1 thread</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Your own JS can also use more threads or processes: worker_threads for CPU work,</text>
+<text x="48" y="604" class="body">cluster (or PM2) to run one process per CPU core.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> One Node process uses one core for JS. On an 8-core server, cluster gives you 8 event</text>
+<text x="48" y="652" class="body">loops.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">cluster.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const cluster = require(&apos;node:cluster&apos;);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">const os = require(&apos;node:os&apos;);</text>
+<text x="808" y="589" class="code" xml:space="preserve"></text>
+<text x="808" y="604.5" class="code" xml:space="preserve">if (cluster.isPrimary) {</text>
+<text x="808" y="620" class="code" xml:space="preserve">  os.cpus().forEach(() =&gt; cluster.fork()); // 1 per core</text>
+<text x="808" y="635.5" class="code" xml:space="preserve">} else {</text>
+<text x="808" y="651" class="code" xml:space="preserve">  require(&apos;./server&apos;);  // each = own process + event loop</text>
+<text x="808" y="666.5" class="code" xml:space="preserve">}</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">8 / 9</text>
+</g>
+<g class="scene" id="scene8" style="animation-delay:64s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">RECAP</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Recap + concepts added</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> One process, one main thread: init → top-level code → require → register callbacks →</text>
+<text x="48" y="604" class="body">event loop, with heavy tasks offloaded to 4 pool threads.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> process object, require cache, UV_THREADPOOL_SIZE, network vs pool, worker_threads /</text>
+<text x="48" y="652" class="body">cluster / child_process.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">count the threads</text>
+<text x="808" y="558" class="code" xml:space="preserve">1 process</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">  1 main JS thread   (event loop + your code)</text>
+<text x="808" y="589" class="code" xml:space="preserve">  4 libuv pool threads (fs, crypto, zlib, dns)</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">  + V8 helper threads (garbage collection, JIT)</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">9 / 9</text>
+</g>
+<rect x="25" y="804" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".05" stroke="#34d399" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:64s" x="25" y="804" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".1" stroke="#34d399" stroke-width="2.5" filter="url(#glow)"/>
+<text x="41" y="832" font-size="15" font-weight="700" fill="#34d399">Remember</text>
+<text x="41" y="858" font-size="12.5" class="b">1 process · 1 JS thread · 4 pool threads</text>
+<text x="41" y="878" font-size="12.5" class="b">Top-level code runs before any callback</text>
+<rect x="481.6666666666667" y="804" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".05" stroke="#f87171" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:64s" x="481.6666666666667" y="804" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".1" stroke="#f87171" stroke-width="2.5" filter="url(#glow)"/>
+<text x="497.6666666666667" y="832" font-size="15" font-weight="700" fill="#f87171">Common mistake</text>
+<text x="497.6666666666667" y="858" font-size="12.5" class="b">readFileSync inside a request handler</text>
+<text x="497.6666666666667" y="878" font-size="12.5" class="b">(sync at startup is fine)</text>
+<rect x="938.3333333333334" y="804" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".05" stroke="#fbbf24" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:64s" x="938.3333333333334" y="804" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".1" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+<text x="954.3333333333334" y="832" font-size="15" font-weight="700" fill="#fbbf24">Interview question</text>
+<text x="954.3333333333334" y="858" font-size="12.5" class="b">Q: Which operations use the thread pool?</text>
+<text x="954.3333333333334" y="878" font-size="12.5" class="b">A: fs, crypto (pbkdf2/scrypt), zlib, dns.lookup</text>
+</svg>

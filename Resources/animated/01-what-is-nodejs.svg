@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 718" width="1400" height="718" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<title>What is Node.js?</title>
+<desc>Auto-playing 48s step-by-step explainer of "What is Node.js?" (from img.png + img_1.png). Each step is highlighted in turn with what happens, why it matters, missing concepts added in lime, and a Node.js code example. Hover to pause.</desc>
+<style>
+.scene,.hl{opacity:0;animation:show 48s linear infinite}
+@keyframes show{0%{opacity:0}1.042%{opacity:1}15.625%{opacity:1}16.667%{opacity:0}100%{opacity:0}}
+@keyframes tok{0%{transform:translate(51px,132px)}16.667%{transform:translate(51px,132px)}18.750%{transform:translate(51px,132px)}33.333%{transform:translate(51px,132px)}35.417%{transform:translate(394.75px,132px)}50.000%{transform:translate(394.75px,132px)}52.083%{transform:translate(738.5px,132px)}66.667%{transform:translate(738.5px,132px)}68.750%{transform:translate(1082.25px,132px)}83.333%{transform:translate(1082.25px,132px)}85.417%{transform:translate(51px,132px)}100%{transform:translate(51px,132px)}}
+@keyframes flow{to{stroke-dashoffset:-16}}
+@keyframes pulse{0%,100%{r:15;opacity:.9}50%{r:21;opacity:.35}}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.token{animation:tok 48s ease-in-out infinite}
+.token .ring{animation:pulse 1.4s ease-in-out infinite}
+.flow{stroke-dasharray:8 8;animation:flow .8s linear infinite}
+.bar{transform-box:fill-box;transform-origin:left;animation:bar 48s linear infinite}
+svg:hover *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#scene0{opacity:1}}
+.t{fill:#e2e8f0}.m{fill:#94a3b8}.b{font-size:12.5px;fill:#cbd5e1}.nw{font-size:12.5px;fill:#a3e635;font-weight:600}
+.code{font-family:'Cascadia Code',Consolas,ui-monospace,monospace;font-size:12.5px;fill:#e2e8f0;white-space:pre}
+.body{font-size:14.5px;fill:#cbd5e1}.lbl{font-weight:700}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#0f1f1a"/></linearGradient>
+<linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#5fa04e"/><stop offset=".5" stop-color="#22d3ee"/><stop offset="1" stop-color="#a3e635"/></linearGradient>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker>
+</defs>
+<rect width="1400" height="718" fill="#070b16"/><rect x="6" y="6" width="1388" height="706" rx="22" fill="url(#bg)" stroke="#1f4d3a"/>
+<polygon points="44,28 60,37 60,55 44,64 28,55 28,37" fill="#5fa04e"/><text x="44" y="51" font-size="12" font-weight="800" fill="#0b1224" text-anchor="middle">01</text>
+<text x="74" y="54" font-size="28" font-weight="800" class="t">What is Node.js?</text>
+<text x="30" y="84" font-size="14" class="m">Node.js is a JavaScript runtime built on Google&apos;s open-source V8 JavaScript engine. What that sentence really means.</text>
+<g font-size="12.5" class="m"><circle cx="1170" cy="44" r="9" fill="none" stroke="#fff" stroke-width="2"/><text x="1186" y="48">current step</text>
+<text x="1160" y="74" fill="#a3e635" font-weight="700">+ added concept</text><text x="1290" y="74">· hover = pause</text></g>
+<line x1="346.75" y1="181" x2="363.75" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="690.5" y1="181" x2="707.5" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1034.25" y1="181" x2="1051.25" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<rect x="25" y="104" width="318.75" height="154" rx="12" fill="#22d3ee" fill-opacity=".07" stroke="#22d3ee" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:8s" x="25" y="104" width="318.75" height="154" rx="12" fill="#22d3ee" fill-opacity=".12" stroke="#22d3ee" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="132" r="13" fill="#22d3ee"/><text x="51" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">1</text>
+<text x="73" y="138" font-size="16.5" font-weight="700" class="t">Your JS code</text>
+<text x="73" y="158" font-size="11" letter-spacing=".5" fill="#22d3ee" font-weight="600">APP.JS</text>
+<circle cx="43" cy="184" r="2.6" fill="#22d3ee"/>
+<text x="53" y="188" class="b">Plain JavaScript files</text>
+<circle cx="43" cy="201.5" r="2.6" fill="#22d3ee"/>
+<text x="53" y="205.5" class="b">Run with: node app.js</text>
+<circle cx="43" cy="219" r="2.6" fill="#22d3ee"/>
+<text x="53" y="223" class="b">No browser needed</text>
+<text x="38" y="240.5" class="nw">+ Interactive REPL: node</text>
+<rect x="368.75" y="104" width="318.75" height="154" rx="12" fill="#60a5fa" fill-opacity=".07" stroke="#60a5fa" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:16s" x="368.75" y="104" width="318.75" height="154" rx="12" fill="#60a5fa" fill-opacity=".12" stroke="#60a5fa" stroke-width="3" filter="url(#glow)"/>
+<circle cx="394.75" cy="132" r="13" fill="#60a5fa"/><text x="394.75" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">2</text>
+<text x="416.75" y="138" font-size="16.5" font-weight="700" class="t">V8 engine</text>
+<text x="416.75" y="158" font-size="11" letter-spacing=".5" fill="#60a5fa" font-weight="600">GOOGLE · C++</text>
+<circle cx="386.75" cy="184" r="2.6" fill="#60a5fa"/>
+<text x="396.75" y="188" class="b">Same engine as Chrome</text>
+<circle cx="386.75" cy="201.5" r="2.6" fill="#60a5fa"/>
+<text x="396.75" y="205.5" class="b">Parses &amp; runs your JS</text>
+<text x="381.75" y="223" class="nw">+ JIT → machine code</text>
+<text x="381.75" y="240.5" class="nw">+ Garbage collector (heap)</text>
+<rect x="712.5" y="104" width="318.75" height="154" rx="12" fill="#a78bfa" fill-opacity=".07" stroke="#a78bfa" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:24s" x="712.5" y="104" width="318.75" height="154" rx="12" fill="#a78bfa" fill-opacity=".12" stroke="#a78bfa" stroke-width="3" filter="url(#glow)"/>
+<circle cx="738.5" cy="132" r="13" fill="#a78bfa"/><text x="738.5" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">3</text>
+<text x="760.5" y="138" font-size="16.5" font-weight="700" class="t">Node APIs + libuv</text>
+<text x="760.5" y="158" font-size="11" letter-spacing=".5" fill="#a78bfa" font-weight="600">THE RUNTIME</text>
+<circle cx="730.5" cy="184" r="2.6" fill="#a78bfa"/>
+<text x="740.5" y="188" class="b">fs, http, crypto, os, path</text>
+<circle cx="730.5" cy="201.5" r="2.6" fill="#a78bfa"/>
+<text x="740.5" y="205.5" class="b">Async I/O via libuv</text>
+<circle cx="730.5" cy="219" r="2.6" fill="#a78bfa"/>
+<text x="740.5" y="223" class="b">process, Buffer, timers</text>
+<text x="725.5" y="240.5" class="nw">+ No DOM / window</text>
+<rect x="1056.25" y="104" width="318.75" height="154" rx="12" fill="#f472b6" fill-opacity=".07" stroke="#f472b6" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:32s" x="1056.25" y="104" width="318.75" height="154" rx="12" fill="#f472b6" fill-opacity=".12" stroke="#f472b6" stroke-width="3" filter="url(#glow)"/>
+<circle cx="1082.25" cy="132" r="13" fill="#f472b6"/><text x="1082.25" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">4</text>
+<text x="1104.25" y="138" font-size="16.5" font-weight="700" class="t">Runs anywhere</text>
+<text x="1104.25" y="158" font-size="11" letter-spacing=".5" fill="#f472b6" font-weight="600">ANY OS</text>
+<circle cx="1074.25" cy="184" r="2.6" fill="#f472b6"/>
+<text x="1084.25" y="188" class="b">Windows · macOS · Linux</text>
+<circle cx="1074.25" cy="201.5" r="2.6" fill="#f472b6"/>
+<text x="1084.25" y="205.5" class="b">Servers, CLIs, desktop apps</text>
+<text x="1069.25" y="223" class="nw">+ npm: package manager</text>
+<text x="1069.25" y="240.5" class="nw">+ LTS = even versions</text>
+<g class="token"><circle class="ring" r="15" fill="none" stroke="#fff" stroke-width="2"/></g>
+<rect x="25" y="292" width="1350" height="292" rx="14" fill="#0b1224" fill-opacity=".85" stroke="#334155"/>
+<rect x="790" y="308" width="568" height="246" rx="10" fill="#020617" stroke="#1e293b"/>
+<circle cx="808" cy="324" r="4.5" fill="#f87171"/><circle cx="823" cy="324" r="4.5" fill="#fbbf24"/><circle cx="838" cy="324" r="4.5" fill="#4ade80"/>
+<rect x="45" y="566" width="1310" height="4" rx="2" fill="#1e293b"/><rect class="bar" x="45" y="566" width="1310" height="4" rx="2" fill="url(#prog)"/>
+<g class="scene" id="scene0" style="animation-delay:0s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#e2e8f0">OVERVIEW</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">What is Node.js?</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Node.js = V8 (runs the JavaScript) + libuv (async I/O) + Node APIs (fs, http,</text>
+<text x="48" y="400" class="body">crypto...). Together they let JavaScript run outside the browser.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> This one definition explains everything later in the course: the event loop, the thread</text>
+<text x="48" y="448" class="body">pool, streams.</text>
+<text x="48" y="476" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Each step unpacks one part of the definition, plus things the slide does not mention</text>
+<text x="48" y="496" class="body">(REPL, JIT, browser vs Node, npm, LTS).</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">the big picture</text>
+<text x="808" y="354" class="code" xml:space="preserve">      your app.js</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">          │</text>
+<text x="808" y="385" class="code" xml:space="preserve"> ┌────────▼──────────────────────┐</text>
+<text x="808" y="400.5" class="code" xml:space="preserve"> │  Node.js runtime              │</text>
+<text x="808" y="416" class="code" xml:space="preserve"> │   ├─ V8     runs the JS       │</text>
+<text x="808" y="431.5" class="code" xml:space="preserve"> │   ├─ libuv  async I/O, loop   │</text>
+<text x="808" y="447" class="code" xml:space="preserve"> │   └─ APIs   fs · http · crypto│</text>
+<text x="808" y="462.5" class="code" xml:space="preserve"> └────────┬──────────────────────┘</text>
+<text x="808" y="478" class="code" xml:space="preserve">          ▼</text>
+<text x="808" y="493.5" class="code" xml:space="preserve"> Operating system: files, network, CPU</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">1 / 6</text>
+</g>
+<g class="scene" id="scene1" style="animation-delay:8s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#22d3ee">STEP 1 / 4 · APP.JS</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Your JS code</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> You write ordinary JavaScript in a .js file and run it from the terminal with "node</text>
+<text x="48" y="400" class="body">app.js". No HTML page, no browser tab.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> JavaScript escapes the browser: the same language can now read files, open ports and</text>
+<text x="48" y="448" class="body">talk to databases.</text>
+<text x="48" y="476" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Type "node" with no file to open the REPL, a live JS console for trying snippets (the</text>
+<text x="48" y="496" class="body">globals list in img_3 comes from there).</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">terminal</text>
+<text x="808" y="354" class="code" xml:space="preserve">$ node -v</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">v22.11.0</text>
+<text x="808" y="385" class="code" xml:space="preserve"></text>
+<text x="808" y="400.5" class="code" xml:space="preserve">$ echo "console.log(&apos;hi from Node&apos;)" &gt; app.js</text>
+<text x="808" y="416" class="code" xml:space="preserve">$ node app.js</text>
+<text x="808" y="431.5" class="code" xml:space="preserve">hi from Node</text>
+<text x="808" y="447" class="code" xml:space="preserve"></text>
+<text x="808" y="462.5" class="code" xml:space="preserve">$ node            # REPL</text>
+<text x="808" y="478" class="code" xml:space="preserve">&gt; 2 + 2</text>
+<text x="808" y="493.5" class="code" xml:space="preserve">4</text>
+<text x="808" y="509" class="code" xml:space="preserve">&gt; .exit</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">2 / 6</text>
+</g>
+<g class="scene" id="scene2" style="animation-delay:16s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#60a5fa">STEP 2 / 4 · GOOGLE · C++</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">V8 engine</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> V8 is the engine that actually executes your JavaScript. Node embeds the very same V8</text>
+<text x="48" y="400" class="body">that runs inside Google Chrome.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> V8 only knows the JavaScript language itself (objects, functions, promises). It has no</text>
+<text x="48" y="448" class="body">idea what a file or a network socket is.</text>
+<text x="48" y="476" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> V8 starts by interpreting bytecode, then JIT-compiles "hot" functions to fast machine</text>
+<text x="48" y="496" class="body">code, and frees unused memory with a garbage collector.</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">what V8 gives you</text>
+<text x="808" y="354" class="code" xml:space="preserve">// V8 = the language:</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">const user = { name: "Ashu" };</text>
+<text x="808" y="385" class="code" xml:space="preserve">const add = (a, b) =&gt; a + b;</text>
+<text x="808" y="400.5" class="code" xml:space="preserve">const n = await Promise.resolve(42);</text>
+<text x="808" y="416" class="code" xml:space="preserve"></text>
+<text x="808" y="431.5" class="code" xml:space="preserve">// NOT from V8 (these come from Node):</text>
+<text x="808" y="447" class="code" xml:space="preserve">//   fs.readFile, http.createServer, process</text>
+<text x="808" y="462.5" class="code" xml:space="preserve"></text>
+<text x="808" y="478" class="code" xml:space="preserve">$ node -p process.versions.v8</text>
+<text x="808" y="493.5" class="code" xml:space="preserve">12.4.254.21-node.21</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">3 / 6</text>
+</g>
+<g class="scene" id="scene3" style="animation-delay:24s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a78bfa">STEP 3 / 4 · THE RUNTIME</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Node APIs + libuv</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Node wraps V8 with extra APIs written in C++ and JS: file system, networking, crypto,</text>
+<text x="48" y="400" class="body">OS info, plus libuv for asynchronous I/O.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Engine + these APIs = a "runtime". That is exactly what "JavaScript runtime built on</text>
+<text x="48" y="448" class="body">V8" means.</text>
+<text x="48" y="476" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Browser and Node share the language but not the APIs: Node has no document / window /</text>
+<text x="48" y="496" class="body">DOM; the browser has no fs or process.</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">app.js</text>
+<text x="808" y="354" class="code" xml:space="preserve">const fs = require(&apos;node:fs&apos;);</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">const os = require(&apos;node:os&apos;);</text>
+<text x="808" y="385" class="code" xml:space="preserve"></text>
+<text x="808" y="400.5" class="code" xml:space="preserve">console.log(os.cpus().length, &apos;CPU cores&apos;);</text>
+<text x="808" y="416" class="code" xml:space="preserve">console.log(fs.readdirSync(&apos;.&apos;));</text>
+<text x="808" y="431.5" class="code" xml:space="preserve"></text>
+<text x="808" y="447" class="code" xml:space="preserve">typeof window    // "undefined" in Node</text>
+<text x="808" y="462.5" class="code" xml:space="preserve">typeof process   // "object" in Node</text>
+<text x="808" y="478" class="code" xml:space="preserve">typeof document  // "undefined" in Node</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">4 / 6</text>
+</g>
+<g class="scene" id="scene4" style="animation-delay:32s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#f472b6">STEP 4 / 4 · ANY OS</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Runs anywhere</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> The node binary runs on every major OS, so the same app runs on your laptop, a VPS, a</text>
+<text x="48" y="400" class="body">Docker container or a serverless function.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> One language for frontend, backend, tooling (Vite, ESLint) and even desktop apps</text>
+<text x="48" y="448" class="body">(Electron, e.g. VS Code).</text>
+<text x="48" y="476" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> npm ships with Node to install packages. Use LTS versions (even numbers: 20, 22) in</text>
+<text x="48" y="496" class="body">production; odd versions are short-lived.</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">terminal</text>
+<text x="808" y="354" class="code" xml:space="preserve">$ npm init -y</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">$ npm install express</text>
+<text x="808" y="385" class="code" xml:space="preserve">$ node --watch server.js   # restart on save</text>
+<text x="808" y="400.5" class="code" xml:space="preserve"></text>
+<text x="808" y="416" class="code" xml:space="preserve">// package.json</text>
+<text x="808" y="431.5" class="code" xml:space="preserve">"scripts": { "start": "node server.js" }</text>
+<text x="808" y="447" class="code" xml:space="preserve"></text>
+<text x="808" y="462.5" class="code" xml:space="preserve"># release lines: 20 LTS · 22 LTS · 23 current</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">5 / 6</text>
+</g>
+<g class="scene" id="scene5" style="animation-delay:40s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">RECAP</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Recap + concepts added</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Node.js is not a language and not a framework: it is a runtime. JavaScript is the</text>
+<text x="48" y="400" class="body">language; Express is a framework that runs on Node.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> REPL, JIT + garbage collector inside V8, browser vs Node APIs, npm, and LTS versions.</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">one-line answer</text>
+<text x="808" y="354" class="code" xml:space="preserve">Q: What is Node.js?</text>
+<text x="808" y="369.5" class="code" xml:space="preserve"></text>
+<text x="808" y="385" class="code" xml:space="preserve">A: A JavaScript runtime: Google&apos;s V8 engine</text>
+<text x="808" y="400.5" class="code" xml:space="preserve">   + libuv (event loop, async I/O)</text>
+<text x="808" y="416" class="code" xml:space="preserve">   + built-in APIs (fs, http, crypto ...)</text>
+<text x="808" y="431.5" class="code" xml:space="preserve">   so JS can run on servers, not just browsers.</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">6 / 6</text>
+</g>
+<rect x="25" y="600" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".05" stroke="#34d399" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="25" y="600" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".1" stroke="#34d399" stroke-width="2.5" filter="url(#glow)"/>
+<text x="41" y="628" font-size="15" font-weight="700" fill="#34d399">Remember</text>
+<text x="41" y="654" font-size="12.5" class="b">Node = V8 + libuv + Node APIs</text>
+<text x="41" y="674" font-size="12.5" class="b">Language comes from V8, I/O powers from Node</text>
+<rect x="481.6666666666667" y="600" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".05" stroke="#f87171" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="481.6666666666667" y="600" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".1" stroke="#f87171" stroke-width="2.5" filter="url(#glow)"/>
+<text x="497.6666666666667" y="628" font-size="15" font-weight="700" fill="#f87171">Common mistake</text>
+<text x="497.6666666666667" y="654" font-size="12.5" class="b">Calling Node a language or a framework</text>
+<text x="497.6666666666667" y="674" font-size="12.5" class="b">Using window / document in Node code</text>
+<rect x="938.3333333333334" y="600" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".05" stroke="#fbbf24" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="938.3333333333334" y="600" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".1" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+<text x="954.3333333333334" y="628" font-size="15" font-weight="700" fill="#fbbf24">Interview question</text>
+<text x="954.3333333333334" y="654" font-size="12.5" class="b">Q: Is Node.js single-threaded?</text>
+<text x="954.3333333333334" y="674" font-size="12.5" class="b">A: Your JS runs on 1 thread; libuv uses more</text>
+</svg>

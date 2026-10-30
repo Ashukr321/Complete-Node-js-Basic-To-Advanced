@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 758" width="1400" height="758" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<title>The Heart of Node.js: The Event Loop</title>
+<desc>Auto-playing 48s step-by-step explainer of "The Heart of Node.js: The Event Loop" (from img_7.png). Each step is highlighted in turn with what happens, why it matters, missing concepts added in lime, and a Node.js code example. Hover to pause.</desc>
+<style>
+.scene,.hl{opacity:0;animation:show 48s linear infinite}
+@keyframes show{0%{opacity:0}1.042%{opacity:1}15.625%{opacity:1}16.667%{opacity:0}100%{opacity:0}}
+@keyframes tok{0%{transform:translate(51px,132px)}16.667%{transform:translate(51px,132px)}18.750%{transform:translate(51px,132px)}33.333%{transform:translate(51px,132px)}35.417%{transform:translate(394.75px,132px)}50.000%{transform:translate(394.75px,132px)}52.083%{transform:translate(738.5px,132px)}66.667%{transform:translate(738.5px,132px)}68.750%{transform:translate(1082.25px,132px)}83.333%{transform:translate(1082.25px,132px)}85.417%{transform:translate(51px,132px)}100%{transform:translate(51px,132px)}}
+@keyframes flow{to{stroke-dashoffset:-16}}
+@keyframes pulse{0%,100%{r:15;opacity:.9}50%{r:21;opacity:.35}}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.token{animation:tok 48s ease-in-out infinite}
+.token .ring{animation:pulse 1.4s ease-in-out infinite}
+.flow{stroke-dasharray:8 8;animation:flow .8s linear infinite}
+.bar{transform-box:fill-box;transform-origin:left;animation:bar 48s linear infinite}
+svg:hover *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#scene0{opacity:1}}
+.t{fill:#e2e8f0}.m{fill:#94a3b8}.b{font-size:12.5px;fill:#cbd5e1}.nw{font-size:12.5px;fill:#a3e635;font-weight:600}
+.code{font-family:'Cascadia Code',Consolas,ui-monospace,monospace;font-size:12.5px;fill:#e2e8f0;white-space:pre}
+.body{font-size:14.5px;fill:#cbd5e1}.lbl{font-weight:700}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#0f1f1a"/></linearGradient>
+<linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#5fa04e"/><stop offset=".5" stop-color="#22d3ee"/><stop offset="1" stop-color="#a3e635"/></linearGradient>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker>
+</defs>
+<rect width="1400" height="758" fill="#070b16"/><rect x="6" y="6" width="1388" height="746" rx="22" fill="url(#bg)" stroke="#1f4d3a"/>
+<polygon points="44,28 60,37 60,55 44,64 28,55 28,37" fill="#5fa04e"/><text x="44" y="51" font-size="12" font-weight="800" fill="#0b1224" text-anchor="middle">07</text>
+<text x="74" y="54" font-size="28" font-weight="800" class="t">The Heart of Node.js: The Event Loop</text>
+<text x="30" y="84" font-size="14" class="m">Events are emitted, the event loop picks them up, callbacks are called. Over and over.</text>
+<g font-size="12.5" class="m"><circle cx="1170" cy="44" r="9" fill="none" stroke="#fff" stroke-width="2"/><text x="1186" y="48">current step</text>
+<text x="1160" y="74" fill="#a3e635" font-weight="700">+ added concept</text><text x="1290" y="74">· hover = pause</text></g>
+<line x1="346.75" y1="181" x2="363.75" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="690.5" y1="181" x2="707.5" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1034.25" y1="181" x2="1051.25" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<path d="M1215.625 262 V288 H184.375 V266" fill="none" stroke="#f472b6" stroke-width="2" class="flow" marker-end="url(#arp)"/>
+<text x="700" y="308" font-size="12.5" fill="#f472b6" font-weight="600" text-anchor="middle">↻ repeat while anything is pending</text>
+<rect x="25" y="104" width="318.75" height="154" rx="12" fill="#f472b6" fill-opacity=".07" stroke="#f472b6" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:8s" x="25" y="104" width="318.75" height="154" rx="12" fill="#f472b6" fill-opacity=".12" stroke="#f472b6" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="132" r="13" fill="#f472b6"/><text x="51" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">1</text>
+<text x="73" y="138" font-size="16.5" font-weight="700" class="t">Events are emitted</text>
+<text x="73" y="158" font-size="11" letter-spacing=".5" fill="#f472b6" font-weight="600">E = EVENT</text>
+<circle cx="43" cy="184" r="2.6" fill="#f472b6"/>
+<text x="53" y="188" class="b">New HTTP request</text>
+<circle cx="43" cy="201.5" r="2.6" fill="#f472b6"/>
+<text x="53" y="205.5" class="b">Timer expired</text>
+<circle cx="43" cy="219" r="2.6" fill="#f472b6"/>
+<text x="53" y="223" class="b">Finished file reading</text>
+<text x="38" y="240.5" class="nw">+ Promise resolved</text>
+<rect x="368.75" y="104" width="318.75" height="154" rx="12" fill="#34d399" fill-opacity=".07" stroke="#34d399" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:16s" x="368.75" y="104" width="318.75" height="154" rx="12" fill="#34d399" fill-opacity=".12" stroke="#34d399" stroke-width="3" filter="url(#glow)"/>
+<circle cx="394.75" cy="132" r="13" fill="#34d399"/><text x="394.75" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">2</text>
+<text x="416.75" y="138" font-size="16.5" font-weight="700" class="t">Callbacks wait</text>
+<text x="416.75" y="158" font-size="11" letter-spacing=".5" fill="#34d399" font-weight="600">QUEUES</text>
+<circle cx="386.75" cy="184" r="2.6" fill="#34d399"/>
+<text x="396.75" y="188" class="b">Each event → its callback</text>
+<circle cx="386.75" cy="201.5" r="2.6" fill="#34d399"/>
+<text x="396.75" y="205.5" class="b">Callbacks wait in queues</text>
+<text x="381.75" y="223" class="nw">+ Until call stack is empty</text>
+<rect x="712.5" y="104" width="318.75" height="154" rx="12" fill="#22d3ee" fill-opacity=".07" stroke="#22d3ee" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:24s" x="712.5" y="104" width="318.75" height="154" rx="12" fill="#22d3ee" fill-opacity=".12" stroke="#22d3ee" stroke-width="3" filter="url(#glow)"/>
+<circle cx="738.5" cy="132" r="13" fill="#22d3ee"/><text x="738.5" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">3</text>
+<text x="760.5" y="138" font-size="16.5" font-weight="700" class="t">Loop picks one up</text>
+<text x="760.5" y="158" font-size="11" letter-spacing=".5" fill="#22d3ee" font-weight="600">EVENT LOOP</text>
+<circle cx="730.5" cy="184" r="2.6" fill="#22d3ee"/>
+<text x="740.5" y="188" class="b">Takes the next callback</text>
+<circle cx="730.5" cy="201.5" r="2.6" fill="#22d3ee"/>
+<text x="740.5" y="205.5" class="b">Puts it on the call stack</text>
+<circle cx="730.5" cy="219" r="2.6" fill="#22d3ee"/>
+<text x="740.5" y="223" class="b">One at a time</text>
+<rect x="1056.25" y="104" width="318.75" height="154" rx="12" fill="#60a5fa" fill-opacity=".07" stroke="#60a5fa" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:32s" x="1056.25" y="104" width="318.75" height="154" rx="12" fill="#60a5fa" fill-opacity=".12" stroke="#60a5fa" stroke-width="3" filter="url(#glow)"/>
+<circle cx="1082.25" cy="132" r="13" fill="#60a5fa"/><text x="1082.25" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">4</text>
+<text x="1104.25" y="138" font-size="16.5" font-weight="700" class="t">Callback runs</text>
+<text x="1104.25" y="158" font-size="11" letter-spacing=".5" fill="#60a5fa" font-weight="600">YOUR CODE</text>
+<circle cx="1074.25" cy="184" r="2.6" fill="#60a5fa"/>
+<text x="1084.25" y="188" class="b">Your app logic runs</text>
+<circle cx="1074.25" cy="201.5" r="2.6" fill="#60a5fa"/>
+<text x="1084.25" y="205.5" class="b">Must finish quickly</text>
+<circle cx="1074.25" cy="219" r="2.6" fill="#60a5fa"/>
+<text x="1084.25" y="223" class="b">May register new callbacks</text>
+<g class="token"><circle class="ring" r="15" fill="none" stroke="#fff" stroke-width="2"/></g>
+<rect x="25" y="332" width="1350" height="292" rx="14" fill="#0b1224" fill-opacity=".85" stroke="#334155"/>
+<rect x="790" y="348" width="568" height="246" rx="10" fill="#020617" stroke="#1e293b"/>
+<circle cx="808" cy="364" r="4.5" fill="#f87171"/><circle cx="823" cy="364" r="4.5" fill="#fbbf24"/><circle cx="838" cy="364" r="4.5" fill="#4ade80"/>
+<rect x="45" y="606" width="1310" height="4" rx="2" fill="#1e293b"/><rect class="bar" x="45" y="606" width="1310" height="4" rx="2" fill="url(#prog)"/>
+<g class="scene" id="scene0" style="animation-delay:0s">
+<text x="48" y="362" font-size="12" font-weight="700" letter-spacing="1.5" fill="#e2e8f0">OVERVIEW</text>
+<text x="48" y="390" font-size="22" font-weight="800" class="t">The Heart of Node.js: The Event Loop</text>
+<text x="48" y="420" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> All application code inside callback functions (everything that is not top-level) runs</text>
+<text x="48" y="440" class="body">in the event loop. Node is built around callbacks.</text>
+<text x="48" y="468" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Event-driven architecture: a new HTTP request, an expired timer or a finished file read</text>
+<text x="48" y="488" class="body">each emit an event, and its callback runs.</text>
+<text x="48" y="516" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> The call stack (the loop only runs a callback when it is empty), promises and</text>
+<text x="48" y="536" class="body">async/await (callbacks too).</text>
+<text x="855" y="368" font-size="11.5" class="m" font-family="Consolas,monospace">the cycle</text>
+<text x="808" y="394" class="code" xml:space="preserve"> New HTTP request    ─E─►┐</text>
+<text x="808" y="409.5" class="code" xml:space="preserve"> Timer expired       ─E─►├──► EVENT LOOP ──► callback()</text>
+<text x="808" y="425" class="code" xml:space="preserve"> Finished file read  ─E─►┘        ▲             │</text>
+<text x="808" y="440.5" class="code" xml:space="preserve">                                  └─────────────┘</text>
+<text x="1355" y="362" font-size="11.5" class="m" text-anchor="end">1 / 6</text>
+</g>
+<g class="scene" id="scene1" style="animation-delay:8s">
+<text x="48" y="362" font-size="12" font-weight="700" letter-spacing="1.5" fill="#f472b6">STEP 1 / 4 · E = EVENT</text>
+<text x="48" y="390" font-size="22" font-weight="800" class="t">Events are emitted</text>
+<text x="48" y="420" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Things happen outside your code: a request arrives, a timer runs out, a file finishes</text>
+<text x="48" y="440" class="body">reading. Each emits an event.</text>
+<text x="48" y="468" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> A promise resolving (fetch, DB query, await) is also an event; its .then / await</text>
+<text x="48" y="488" class="body">continuation is a callback.</text>
+<text x="855" y="368" font-size="11.5" class="m" font-family="Consolas,monospace">events.js</text>
+<text x="808" y="394" class="code" xml:space="preserve">server.on(&apos;request&apos;, handler);      // HTTP event</text>
+<text x="808" y="409.5" class="code" xml:space="preserve">setTimeout(onTimer, 2000);          // timer event</text>
+<text x="808" y="425" class="code" xml:space="preserve">fs.readFile(&apos;a.txt&apos;, onFileRead);   // I/O event</text>
+<text x="808" y="440.5" class="code" xml:space="preserve">fetch(url).then(onData);            // promise event</text>
+<text x="1355" y="362" font-size="11.5" class="m" text-anchor="end">2 / 6</text>
+</g>
+<g class="scene" id="scene2" style="animation-delay:16s">
+<text x="48" y="362" font-size="12" font-weight="700" letter-spacing="1.5" fill="#34d399">STEP 2 / 4 · QUEUES</text>
+<text x="48" y="390" font-size="22" font-weight="800" class="t">Callbacks wait</text>
+<text x="48" y="420" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> The callback for each event is put in a queue. It does not interrupt whatever is</text>
+<text x="48" y="440" class="body">running.</text>
+<text x="48" y="468" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> The call stack holds the function running right now. A queued callback only runs when</text>
+<text x="48" y="488" class="body">the stack is empty, which is why setTimeout(fn, 0) is never "immediate".</text>
+<text x="855" y="368" font-size="11.5" class="m" font-family="Consolas,monospace">call stack vs queue</text>
+<text x="808" y="394" class="code" xml:space="preserve"> CALL STACK          CALLBACK QUEUE</text>
+<text x="808" y="409.5" class="code" xml:space="preserve"> [ main() ]          [ onTimer ] [ onFileRead ]</text>
+<text x="808" y="425" class="code" xml:space="preserve">   ↑ busy...           waiting for an empty stack</text>
+<text x="808" y="440.5" class="code" xml:space="preserve"></text>
+<text x="808" y="456" class="code" xml:space="preserve">setTimeout(() =&gt; console.log(&apos;later&apos;), 0);</text>
+<text x="808" y="471.5" class="code" xml:space="preserve">const start = Date.now();</text>
+<text x="808" y="487" class="code" xml:space="preserve">while (Date.now() &lt; start + 2000) {}  // blocks 2 s</text>
+<text x="808" y="502.5" class="code" xml:space="preserve">// &apos;later&apos; prints only after the loop finishes</text>
+<text x="1355" y="362" font-size="11.5" class="m" text-anchor="end">3 / 6</text>
+</g>
+<g class="scene" id="scene3" style="animation-delay:24s">
+<text x="48" y="362" font-size="12" font-weight="700" letter-spacing="1.5" fill="#22d3ee">STEP 3 / 4 · EVENT LOOP</text>
+<text x="48" y="390" font-size="22" font-weight="800" class="t">Loop picks one up</text>
+<text x="48" y="420" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> The event loop takes the next ready callback and runs it on the single thread. One</text>
+<text x="48" y="440" class="body">callback at a time, start to finish.</text>
+<text x="48" y="468" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> No two callbacks ever run at the same time, so you never need locks for your JS</text>
+<text x="48" y="488" class="body">variables.</text>
+<text x="855" y="368" font-size="11.5" class="m" font-family="Consolas,monospace">simplified pseudo-code</text>
+<text x="808" y="394" class="code" xml:space="preserve">while (thereIsPendingWork()) {</text>
+<text x="808" y="409.5" class="code" xml:space="preserve">  const cb = nextReadyCallback();  // from the queues</text>
+<text x="808" y="425" class="code" xml:space="preserve">  cb();                            // runs to completion</text>
+<text x="808" y="440.5" class="code" xml:space="preserve">  runMicrotasks();                 // nextTick, promises</text>
+<text x="808" y="456" class="code" xml:space="preserve">}</text>
+<text x="1355" y="362" font-size="11.5" class="m" text-anchor="end">4 / 6</text>
+</g>
+<g class="scene" id="scene4" style="animation-delay:32s">
+<text x="48" y="362" font-size="12" font-weight="700" letter-spacing="1.5" fill="#60a5fa">STEP 4 / 4 · YOUR CODE</text>
+<text x="48" y="390" font-size="22" font-weight="800" class="t">Callback runs</text>
+<text x="48" y="420" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Your callback runs. It may start more async work (a DB query, another timer), which</text>
+<text x="48" y="440" class="body">registers new callbacks, and the cycle continues.</text>
+<text x="48" y="468" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Keep callbacks short: while one runs, every other request waits.</text>
+<text x="48" y="496" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> async/await is just nicer syntax for this: each await registers a callback and gives</text>
+<text x="48" y="516" class="body">the thread back to the loop.</text>
+<text x="855" y="368" font-size="11.5" class="m" font-family="Consolas,monospace">route.js</text>
+<text x="808" y="394" class="code" xml:space="preserve">app.get(&apos;/user&apos;, async (req, res) =&gt; {</text>
+<text x="808" y="409.5" class="code" xml:space="preserve">  const user = await db.find(req.query.id); // yields</text>
+<text x="808" y="425" class="code" xml:space="preserve">  res.json(user);                            // resumes</text>
+<text x="808" y="440.5" class="code" xml:space="preserve">});</text>
+<text x="808" y="456" class="code" xml:space="preserve">// await = "register a callback, let others run"</text>
+<text x="1355" y="362" font-size="11.5" class="m" text-anchor="end">5 / 6</text>
+</g>
+<g class="scene" id="scene5" style="animation-delay:40s">
+<text x="48" y="362" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">RECAP</text>
+<text x="48" y="390" font-size="22" font-weight="800" class="t">Recap + concepts added</text>
+<text x="48" y="420" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Events are emitted → callbacks are queued → the event loop picks them up → callbacks</text>
+<text x="48" y="440" class="body">are called, until nothing is pending.</text>
+<text x="48" y="468" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Call stack vs queue, promises as events, async/await as callbacks.</text>
+<text x="855" y="368" font-size="11.5" class="m" font-family="Consolas,monospace">quick quiz</text>
+<text x="808" y="394" class="code" xml:space="preserve">console.log(&apos;1&apos;);</text>
+<text x="808" y="409.5" class="code" xml:space="preserve">setTimeout(() =&gt; console.log(&apos;2&apos;), 0);</text>
+<text x="808" y="425" class="code" xml:space="preserve">Promise.resolve().then(() =&gt; console.log(&apos;3&apos;));</text>
+<text x="808" y="440.5" class="code" xml:space="preserve">console.log(&apos;4&apos;);</text>
+<text x="808" y="456" class="code" xml:space="preserve"></text>
+<text x="808" y="471.5" class="code" xml:space="preserve">// answer: 1, 4, 3, 2  (details in 08)</text>
+<text x="1355" y="362" font-size="11.5" class="m" text-anchor="end">6 / 6</text>
+</g>
+<rect x="25" y="640" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".05" stroke="#34d399" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="25" y="640" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".1" stroke="#34d399" stroke-width="2.5" filter="url(#glow)"/>
+<text x="41" y="668" font-size="15" font-weight="700" fill="#34d399">Remember</text>
+<text x="41" y="694" font-size="12.5" class="b">Event loop = orchestrator of callbacks</text>
+<text x="41" y="714" font-size="12.5" class="b">Callbacks run only when the stack is empty</text>
+<rect x="481.6666666666667" y="640" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".05" stroke="#f87171" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="481.6666666666667" y="640" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".1" stroke="#f87171" stroke-width="2.5" filter="url(#glow)"/>
+<text x="497.6666666666667" y="668" font-size="15" font-weight="700" fill="#f87171">Common mistake</text>
+<text x="497.6666666666667" y="694" font-size="12.5" class="b">Thinking setTimeout(fn, 0) runs right away</text>
+<text x="497.6666666666667" y="714" font-size="12.5" class="b">→ it waits for the stack and the loop</text>
+<rect x="938.3333333333334" y="640" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".05" stroke="#fbbf24" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="938.3333333333334" y="640" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".1" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+<text x="954.3333333333334" y="668" font-size="15" font-weight="700" fill="#fbbf24">Interview question</text>
+<text x="954.3333333333334" y="694" font-size="12.5" class="b">Q: What is the event loop?</text>
+<text x="954.3333333333334" y="714" font-size="12.5" class="b">A: Runs queued callbacks on the single thread</text>
+</svg>

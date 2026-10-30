@@ -1,0 +1,255 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 922" width="1400" height="922" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<title>Node.js Streams Fundamentals</title>
+<desc>Auto-playing 64s step-by-step explainer of "Node.js Streams Fundamentals" (from img_12.png). Each step is highlighted in turn with what happens, why it matters, missing concepts added in lime, and a Node.js code example. Hover to pause.</desc>
+<style>
+.scene,.hl{opacity:0;animation:show 64s linear infinite}
+@keyframes show{0%{opacity:0}0.781%{opacity:1}11.719%{opacity:1}12.500%{opacity:0}100%{opacity:0}}
+@keyframes tok{0%{transform:translate(51px,132px)}12.500%{transform:translate(51px,132px)}14.063%{transform:translate(51px,132px)}25.000%{transform:translate(51px,132px)}26.563%{transform:translate(509.3333333333333px,132px)}37.500%{transform:translate(509.3333333333333px,132px)}39.063%{transform:translate(967.6666666666666px,132px)}50.000%{transform:translate(967.6666666666666px,132px)}51.563%{transform:translate(967.6666666666666px,336px)}62.500%{transform:translate(967.6666666666666px,336px)}64.063%{transform:translate(509.3333333333333px,336px)}75.000%{transform:translate(509.3333333333333px,336px)}76.563%{transform:translate(51px,336px)}87.500%{transform:translate(51px,336px)}89.063%{transform:translate(51px,132px)}100%{transform:translate(51px,132px)}}
+@keyframes flow{to{stroke-dashoffset:-16}}
+@keyframes pulse{0%,100%{r:15;opacity:.9}50%{r:21;opacity:.35}}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.token{animation:tok 64s ease-in-out infinite}
+.token .ring{animation:pulse 1.4s ease-in-out infinite}
+.flow{stroke-dasharray:8 8;animation:flow .8s linear infinite}
+.bar{transform-box:fill-box;transform-origin:left;animation:bar 64s linear infinite}
+svg:hover *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#scene0{opacity:1}}
+.t{fill:#e2e8f0}.m{fill:#94a3b8}.b{font-size:12.5px;fill:#cbd5e1}.nw{font-size:12.5px;fill:#a3e635;font-weight:600}
+.code{font-family:'Cascadia Code',Consolas,ui-monospace,monospace;font-size:12.5px;fill:#e2e8f0;white-space:pre}
+.body{font-size:14.5px;fill:#cbd5e1}.lbl{font-weight:700}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#0f1f1a"/></linearGradient>
+<linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#5fa04e"/><stop offset=".5" stop-color="#22d3ee"/><stop offset="1" stop-color="#a3e635"/></linearGradient>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker>
+</defs>
+<rect width="1400" height="922" fill="#070b16"/><rect x="6" y="6" width="1388" height="910" rx="22" fill="url(#bg)" stroke="#1f4d3a"/>
+<polygon points="44,28 60,37 60,55 44,64 28,55 28,37" fill="#5fa04e"/><text x="44" y="51" font-size="12" font-weight="800" fill="#0b1224" text-anchor="middle">12</text>
+<text x="74" y="54" font-size="28" font-weight="800" class="t">Node.js Streams Fundamentals</text>
+<text x="30" y="84" font-size="14" class="m">Four types of stream, all instances of the EventEmitter class: examples, important events and important functions</text>
+<g font-size="12.5" class="m"><circle cx="1170" cy="44" r="9" fill="none" stroke="#fff" stroke-width="2"/><text x="1186" y="48">current step</text>
+<text x="1160" y="74" fill="#a3e635" font-weight="700">+ added concept</text><text x="1290" y="74">· hover = pause</text></g>
+<line x1="461.3333333333333" y1="181" x2="478.3333333333333" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="919.6666666666666" y1="181" x2="936.6666666666666" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1158.3333333333333" y1="262" x2="1158.3333333333333" y2="302" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="938.6666666666666" y1="385" x2="921.6666666666666" y2="385" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="480.3333333333333" y1="385" x2="463.3333333333333" y2="385" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<rect x="25" y="104" width="433.3333333333333" height="154" rx="12" fill="#818cf8" fill-opacity=".07" stroke="#818cf8" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:8s" x="25" y="104" width="433.3333333333333" height="154" rx="12" fill="#818cf8" fill-opacity=".12" stroke="#818cf8" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="132" r="13" fill="#818cf8"/><text x="51" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">1</text>
+<text x="73" y="138" font-size="16.5" font-weight="700" class="t">Readable</text>
+<text x="73" y="158" font-size="11" letter-spacing=".5" fill="#818cf8" font-weight="600">CONSUME DATA</text>
+<circle cx="43" cy="184" r="2.6" fill="#818cf8"/>
+<text x="53" y="188" class="b">http requests, fs read</text>
+<circle cx="43" cy="201.5" r="2.6" fill="#818cf8"/>
+<text x="53" y="205.5" class="b">events: data, end</text>
+<circle cx="43" cy="219" r="2.6" fill="#818cf8"/>
+<text x="53" y="223" class="b">functions: pipe(), read()</text>
+<text x="38" y="240.5" class="nw">+ error, close events</text>
+<rect x="483.3333333333333" y="104" width="433.3333333333333" height="154" rx="12" fill="#c084fc" fill-opacity=".07" stroke="#c084fc" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:16s" x="483.3333333333333" y="104" width="433.3333333333333" height="154" rx="12" fill="#c084fc" fill-opacity=".12" stroke="#c084fc" stroke-width="3" filter="url(#glow)"/>
+<circle cx="509.3333333333333" cy="132" r="13" fill="#c084fc"/><text x="509.3333333333333" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">2</text>
+<text x="531.3333333333333" y="138" font-size="16.5" font-weight="700" class="t">Writable</text>
+<text x="531.3333333333333" y="158" font-size="11" letter-spacing=".5" fill="#c084fc" font-weight="600">WRITE DATA</text>
+<circle cx="501.3333333333333" cy="184" r="2.6" fill="#c084fc"/>
+<text x="511.3333333333333" y="188" class="b">http responses, fs write</text>
+<circle cx="501.3333333333333" cy="201.5" r="2.6" fill="#c084fc"/>
+<text x="511.3333333333333" y="205.5" class="b">events: drain, finish</text>
+<circle cx="501.3333333333333" cy="219" r="2.6" fill="#c084fc"/>
+<text x="511.3333333333333" y="223" class="b">functions: write(), end()</text>
+<rect x="941.6666666666666" y="104" width="433.3333333333333" height="154" rx="12" fill="#fbbf24" fill-opacity=".07" stroke="#fbbf24" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:24s" x="941.6666666666666" y="104" width="433.3333333333333" height="154" rx="12" fill="#fbbf24" fill-opacity=".12" stroke="#fbbf24" stroke-width="3" filter="url(#glow)"/>
+<circle cx="967.6666666666666" cy="132" r="13" fill="#fbbf24"/><text x="967.6666666666666" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">3</text>
+<text x="989.6666666666666" y="138" font-size="16.5" font-weight="700" class="t">Duplex</text>
+<text x="989.6666666666666" y="158" font-size="11" letter-spacing=".5" fill="#fbbf24" font-weight="600">BOTH WAYS</text>
+<circle cx="959.6666666666666" cy="184" r="2.6" fill="#fbbf24"/>
+<text x="969.6666666666666" y="188" class="b">Readable AND writable</text>
+<circle cx="959.6666666666666" cy="201.5" r="2.6" fill="#fbbf24"/>
+<text x="969.6666666666666" y="205.5" class="b">net socket, WebSocket</text>
+<circle cx="959.6666666666666" cy="219" r="2.6" fill="#fbbf24"/>
+<text x="969.6666666666666" y="223" class="b">Two independent sides</text>
+<rect x="941.6666666666666" y="308" width="433.3333333333333" height="154" rx="12" fill="#2dd4bf" fill-opacity=".07" stroke="#2dd4bf" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:32s" x="941.6666666666666" y="308" width="433.3333333333333" height="154" rx="12" fill="#2dd4bf" fill-opacity=".12" stroke="#2dd4bf" stroke-width="3" filter="url(#glow)"/>
+<circle cx="967.6666666666666" cy="336" r="13" fill="#2dd4bf"/><text x="967.6666666666666" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">4</text>
+<text x="989.6666666666666" y="342" font-size="16.5" font-weight="700" class="t">Transform</text>
+<text x="989.6666666666666" y="362" font-size="11" letter-spacing=".5" fill="#2dd4bf" font-weight="600">MODIFY DATA</text>
+<circle cx="959.6666666666666" cy="388" r="2.6" fill="#2dd4bf"/>
+<text x="969.6666666666666" y="392" class="b">Duplex that changes data</text>
+<circle cx="959.6666666666666" cy="405.5" r="2.6" fill="#2dd4bf"/>
+<text x="969.6666666666666" y="409.5" class="b">zlib Gzip creation</text>
+<text x="954.6666666666666" y="427" class="nw">+ crypto ciphers</text>
+<text x="954.6666666666666" y="444.5" class="nw">+ Write your own</text>
+<rect x="483.3333333333333" y="308" width="433.3333333333333" height="154" rx="12" fill="#a3e635" fill-opacity=".07" stroke="#a3e635" stroke-opacity="1" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="483.3333333333333" y="308" width="433.3333333333333" height="154" rx="12" fill="#a3e635" fill-opacity=".12" stroke="#a3e635" stroke-width="3" filter="url(#glow)"/>
+<circle cx="509.3333333333333" cy="336" r="13" fill="#a3e635"/><text x="509.3333333333333" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">5</text>
+<text x="531.3333333333333" y="342" font-size="16.5" font-weight="700" class="t">pipeline()</text>
+<text x="531.3333333333333" y="362" font-size="11" letter-spacing=".5" fill="#a3e635" font-weight="600">NEW · BEST PRACTICE</text>
+<text x="496.3333333333333" y="392" class="nw">+ Chains streams safely</text>
+<text x="496.3333333333333" y="409.5" class="nw">+ Passes errors along</text>
+<text x="496.3333333333333" y="427" class="nw">+ Destroys all on failure</text>
+<text x="496.3333333333333" y="444.5" class="nw">+ stream/promises version</text>
+<rect x="25" y="308" width="433.3333333333333" height="154" rx="12" fill="#a3e635" fill-opacity=".07" stroke="#a3e635" stroke-opacity="1" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:48s" x="25" y="308" width="433.3333333333333" height="154" rx="12" fill="#a3e635" fill-opacity=".12" stroke="#a3e635" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="336" r="13" fill="#a3e635"/><text x="51" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">6</text>
+<text x="73" y="342" font-size="16.5" font-weight="700" class="t">Modern patterns</text>
+<text x="73" y="362" font-size="11" letter-spacing=".5" fill="#a3e635" font-weight="600">NEW · TODAY</text>
+<text x="38" y="392" class="nw">+ for await...of a readable</text>
+<text x="38" y="409.5" class="nw">+ Readable.from(array)</text>
+<text x="38" y="427" class="nw">+ objectMode streams</text>
+<text x="38" y="444.5" class="nw">+ Web Streams interop</text>
+<g class="token"><circle class="ring" r="15" fill="none" stroke="#fff" stroke-width="2"/></g>
+<rect x="25" y="496" width="1350" height="292" rx="14" fill="#0b1224" fill-opacity=".85" stroke="#334155"/>
+<rect x="790" y="512" width="568" height="246" rx="10" fill="#020617" stroke="#1e293b"/>
+<circle cx="808" cy="528" r="4.5" fill="#f87171"/><circle cx="823" cy="528" r="4.5" fill="#fbbf24"/><circle cx="838" cy="528" r="4.5" fill="#4ade80"/>
+<rect x="45" y="770" width="1310" height="4" rx="2" fill="#1e293b"/><rect class="bar" x="45" y="770" width="1310" height="4" rx="2" fill="url(#prog)"/>
+<g class="scene" id="scene0" style="animation-delay:0s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#e2e8f0">OVERVIEW</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Node.js Streams Fundamentals</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Streams are instances of EventEmitter: they emit events like data, end, drain and</text>
+<text x="48" y="604" class="body">finish. There are four types: Readable, Writable, Duplex and Transform.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Once you know the four types, every stream API in Node (files, HTTP, sockets, zlib,</text>
+<text x="48" y="652" class="body">crypto) looks familiar.</text>
+<text x="48" y="680" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> pipeline() for safe error handling, for await...of, Readable.from, objectMode, Web</text>
+<text x="48" y="700" class="body">Streams.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">how they connect</text>
+<text x="808" y="558" class="code" xml:space="preserve"> Readable ──pipe──► Transform ──pipe──► Writable</text>
+<text x="808" y="573.5" class="code" xml:space="preserve"> (source)           (gzip)              (file / res)</text>
+<text x="808" y="589" class="code" xml:space="preserve"></text>
+<text x="808" y="604.5" class="code" xml:space="preserve"> Duplex = readable + writable at the same time</text>
+<text x="808" y="620" class="code" xml:space="preserve">         (a TCP socket)</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">1 / 8</text>
+</g>
+<g class="scene" id="scene1" style="animation-delay:8s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#818cf8">STEP 1 / 6 · CONSUME DATA</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Readable</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Streams you read (consume) data from: an incoming http request, an fs read stream,</text>
+<text x="48" y="604" class="body">process.stdin.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Always handle the "error" event. "close" fires when the underlying resource is</text>
+<text x="48" y="652" class="body">released.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">readable.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const rs = fs.createReadStream(&apos;in.txt&apos;, &apos;utf8&apos;);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">rs.on(&apos;data&apos;, (chunk) =&gt; console.log(&apos;got&apos;, chunk.length));</text>
+<text x="808" y="589" class="code" xml:space="preserve">rs.on(&apos;end&apos;, () =&gt; console.log(&apos;no more data&apos;));</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">rs.on(&apos;error&apos;, (err) =&gt; console.error(err.message));</text>
+<text x="808" y="620" class="code" xml:space="preserve"></text>
+<text x="808" y="635.5" class="code" xml:space="preserve">// in an http server, req is a Readable:</text>
+<text x="808" y="651" class="code" xml:space="preserve">let body = &apos;&apos;; req.on(&apos;data&apos;, (c) =&gt; (body += c));</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">2 / 8</text>
+</g>
+<g class="scene" id="scene2" style="animation-delay:16s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#c084fc">STEP 2 / 6 · WRITE DATA</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Writable</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Streams you write data to: an http response, an fs write stream, process.stdout.</text>
+<text x="48" y="612" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> "drain" = buffer emptied, safe to write again. "finish" = end() was called and</text>
+<text x="48" y="632" class="body">everything is flushed.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">writable.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const ws = fs.createWriteStream(&apos;out.txt&apos;);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">ws.write(&apos;line 1\n&apos;);</text>
+<text x="808" y="589" class="code" xml:space="preserve">ws.write(&apos;line 2\n&apos;);</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">ws.end(&apos;last line\n&apos;);        // no more writes</text>
+<text x="808" y="620" class="code" xml:space="preserve">ws.on(&apos;finish&apos;, () =&gt; console.log(&apos;all flushed&apos;));</text>
+<text x="808" y="635.5" class="code" xml:space="preserve"></text>
+<text x="808" y="651" class="code" xml:space="preserve">// in an http server, res is a Writable</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">3 / 8</text>
+</g>
+<g class="scene" id="scene3" style="animation-delay:24s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#fbbf24">STEP 3 / 6 · BOTH WAYS</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Duplex</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Streams that are both readable and writable, like a TCP socket: you read what the</text>
+<text x="48" y="604" class="body">client sends and write back to it.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">echo-server.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const net = require(&apos;node:net&apos;);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">net.createServer((socket) =&gt; {      // socket = Duplex</text>
+<text x="808" y="589" class="code" xml:space="preserve">  socket.on(&apos;data&apos;, (d) =&gt; socket.write(&apos;echo: &apos; + d));</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">}).listen(4000);</text>
+<text x="808" y="620" class="code" xml:space="preserve"></text>
+<text x="808" y="635.5" class="code" xml:space="preserve">// reads from the client AND writes to the client</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">4 / 8</text>
+</g>
+<g class="scene" id="scene4" style="animation-delay:32s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#2dd4bf">STEP 4 / 6 · MODIFY DATA</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Transform</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Duplex streams that transform data as it is written or read: zlib.createGzip()</text>
+<text x="48" y="604" class="body">compresses, crypto ciphers encrypt.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> You can write your own Transform by implementing transform(chunk, encoding,</text>
+<text x="48" y="652" class="body">callback).</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">upper.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const { Transform } = require(&apos;node:stream&apos;);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">const upper = new Transform({</text>
+<text x="808" y="589" class="code" xml:space="preserve">  transform(chunk, enc, cb) {</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">    cb(null, chunk.toString().toUpperCase());</text>
+<text x="808" y="620" class="code" xml:space="preserve">  },</text>
+<text x="808" y="635.5" class="code" xml:space="preserve">});</text>
+<text x="808" y="651" class="code" xml:space="preserve">process.stdin.pipe(upper).pipe(process.stdout);</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">5 / 8</text>
+</g>
+<g class="scene" id="scene5" style="animation-delay:40s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">STEP 5 / 6 · NEW · BEST PRACTICE</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">pipeline()</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> pipeline() connects streams like pipe() but also forwards errors from any stage and</text>
+<text x="48" y="604" class="body">destroys every stream if one fails.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> With plain .pipe(), an error in the middle leaves file handles open and can hang or</text>
+<text x="48" y="652" class="body">leak memory.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">gzip.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const { pipeline } = require(&apos;node:stream/promises&apos;);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">const zlib = require(&apos;node:zlib&apos;);</text>
+<text x="808" y="589" class="code" xml:space="preserve"></text>
+<text x="808" y="604.5" class="code" xml:space="preserve">await pipeline(</text>
+<text x="808" y="620" class="code" xml:space="preserve">  fs.createReadStream(&apos;access.log&apos;),</text>
+<text x="808" y="635.5" class="code" xml:space="preserve">  zlib.createGzip(),                     // Transform</text>
+<text x="808" y="651" class="code" xml:space="preserve">  fs.createWriteStream(&apos;access.log.gz&apos;),</text>
+<text x="808" y="666.5" class="code" xml:space="preserve">);  // one try/catch handles errors from all 3</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">6 / 8</text>
+</g>
+<g class="scene" id="scene6" style="animation-delay:48s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">STEP 6 / 6 · NEW · TODAY</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Modern patterns</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Readables are async iterables: loop over chunks with for await. Readable.from() turns</text>
+<text x="48" y="604" class="body">arrays or generators into streams; objectMode streams carry JS objects.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">New concept:</tspan> fetch() returns Web Streams; Readable.fromWeb() / toWeb() convert between the</text>
+<text x="48" y="652" class="body">two worlds.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">modern.mjs</text>
+<text x="808" y="558" class="code" xml:space="preserve">import { Readable } from &apos;node:stream&apos;;</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">import fs from &apos;node:fs&apos;;</text>
+<text x="808" y="589" class="code" xml:space="preserve"></text>
+<text x="808" y="604.5" class="code" xml:space="preserve">const rows = Readable.from([{ id: 1 }, { id: 2 }]);</text>
+<text x="808" y="620" class="code" xml:space="preserve">for await (const row of rows) console.log(row.id);</text>
+<text x="808" y="635.5" class="code" xml:space="preserve"></text>
+<text x="808" y="651" class="code" xml:space="preserve">const res = await fetch(url);          // Web stream</text>
+<text x="808" y="666.5" class="code" xml:space="preserve">Readable.fromWeb(res.body).pipe(fs.createWriteStream(&apos;f.zip&apos;));</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">7 / 8</text>
+</g>
+<g class="scene" id="scene7" style="animation-delay:56s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">RECAP</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Recap + concepts added</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Readable (read), Writable (write), Duplex (both), Transform (change while passing</text>
+<text x="48" y="604" class="body">through). All are EventEmitters.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> pipeline() over pipe(), error/close events, custom Transform, for await,</text>
+<text x="48" y="652" class="body">Readable.from, objectMode, Web Streams.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">cheat sheet</text>
+<text x="808" y="558" class="code" xml:space="preserve">Readable   events: data, end, error   fns: pipe(), read()</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">Writable   events: drain, finish      fns: write(), end()</text>
+<text x="808" y="589" class="code" xml:space="preserve">Duplex     net.Socket, WebSocket</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">Transform  zlib.createGzip(), crypto ciphers</text>
+<text x="808" y="620" class="code" xml:space="preserve"></text>
+<text x="808" y="635.5" class="code" xml:space="preserve">prefer:    await pipeline(a, b, c)</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">8 / 8</text>
+</g>
+<rect x="25" y="804" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".05" stroke="#34d399" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:56s" x="25" y="804" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".1" stroke="#34d399" stroke-width="2.5" filter="url(#glow)"/>
+<text x="41" y="832" font-size="15" font-weight="700" fill="#34d399">Remember</text>
+<text x="41" y="858" font-size="12.5" class="b">4 types: Readable, Writable, Duplex, Transform</text>
+<text x="41" y="878" font-size="12.5" class="b">Streams are EventEmitters</text>
+<rect x="481.6666666666667" y="804" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".05" stroke="#f87171" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:56s" x="481.6666666666667" y="804" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".1" stroke="#f87171" stroke-width="2.5" filter="url(#glow)"/>
+<text x="497.6666666666667" y="832" font-size="15" font-weight="700" fill="#f87171">Common mistake</text>
+<text x="497.6666666666667" y="858" font-size="12.5" class="b">Using .pipe() without error handling</text>
+<text x="497.6666666666667" y="878" font-size="12.5" class="b">→ use pipeline() from stream/promises</text>
+<rect x="938.3333333333334" y="804" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".05" stroke="#fbbf24" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:56s" x="938.3333333333334" y="804" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".1" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+<text x="954.3333333333334" y="832" font-size="15" font-weight="700" fill="#fbbf24">Interview question</text>
+<text x="954.3333333333334" y="858" font-size="12.5" class="b">Q: pipe() vs pipeline()?</text>
+<text x="954.3333333333334" y="878" font-size="12.5" class="b">A: pipeline forwards errors &amp; cleans up</text>
+</svg>

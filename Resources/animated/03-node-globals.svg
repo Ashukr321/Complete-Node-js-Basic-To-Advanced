@@ -1,0 +1,242 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 735.5" width="1400" height="735.5" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<title>Node.js Globals (REPL list)</title>
+<desc>Auto-playing 56s step-by-step explainer of "Node.js Globals (REPL list)" (from img_3.png). Each step is highlighted in turn with what happens, why it matters, missing concepts added in lime, and a Node.js code example. Hover to pause.</desc>
+<style>
+.scene,.hl{opacity:0;animation:show 56s linear infinite}
+@keyframes show{0%{opacity:0}0.893%{opacity:1}13.393%{opacity:1}14.286%{opacity:0}100%{opacity:0}}
+@keyframes tok{0%{transform:translate(51px,132px)}14.286%{transform:translate(51px,132px)}16.071%{transform:translate(51px,132px)}28.571%{transform:translate(51px,132px)}30.357%{transform:translate(326px,132px)}42.857%{transform:translate(326px,132px)}44.643%{transform:translate(601px,132px)}57.143%{transform:translate(601px,132px)}58.929%{transform:translate(876px,132px)}71.429%{transform:translate(876px,132px)}73.214%{transform:translate(1151px,132px)}85.714%{transform:translate(1151px,132px)}87.500%{transform:translate(51px,132px)}100%{transform:translate(51px,132px)}}
+@keyframes flow{to{stroke-dashoffset:-16}}
+@keyframes pulse{0%,100%{r:15;opacity:.9}50%{r:21;opacity:.35}}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.token{animation:tok 56s ease-in-out infinite}
+.token .ring{animation:pulse 1.4s ease-in-out infinite}
+.flow{stroke-dasharray:8 8;animation:flow .8s linear infinite}
+.bar{transform-box:fill-box;transform-origin:left;animation:bar 56s linear infinite}
+svg:hover *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#scene0{opacity:1}}
+.t{fill:#e2e8f0}.m{fill:#94a3b8}.b{font-size:12.5px;fill:#cbd5e1}.nw{font-size:12.5px;fill:#a3e635;font-weight:600}
+.code{font-family:'Cascadia Code',Consolas,ui-monospace,monospace;font-size:12.5px;fill:#e2e8f0;white-space:pre}
+.body{font-size:14.5px;fill:#cbd5e1}.lbl{font-weight:700}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#0f1f1a"/></linearGradient>
+<linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#5fa04e"/><stop offset=".5" stop-color="#22d3ee"/><stop offset="1" stop-color="#a3e635"/></linearGradient>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker>
+</defs>
+<rect width="1400" height="735.5" fill="#070b16"/><rect x="6" y="6" width="1388" height="723.5" rx="22" fill="url(#bg)" stroke="#1f4d3a"/>
+<polygon points="44,28 60,37 60,55 44,64 28,55 28,37" fill="#5fa04e"/><text x="44" y="51" font-size="12" font-weight="800" fill="#0b1224" text-anchor="middle">03</text>
+<text x="74" y="54" font-size="28" font-weight="800" class="t">Node.js Globals (REPL list)</text>
+<text x="30" y="84" font-size="14" class="m">The list you get by typing node then pressing Tab twice: four different kinds of name, mixed together</text>
+<g font-size="12.5" class="m"><circle cx="1170" cy="44" r="9" fill="none" stroke="#fff" stroke-width="2"/><text x="1186" y="48">current step</text>
+<text x="1160" y="74" fill="#a3e635" font-weight="700">+ added concept</text><text x="1290" y="74">· hover = pause</text></g>
+<rect x="25" y="104" width="250" height="171.5" rx="12" fill="#60a5fa" fill-opacity=".07" stroke="#60a5fa" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:8s" x="25" y="104" width="250" height="171.5" rx="12" fill="#60a5fa" fill-opacity=".12" stroke="#60a5fa" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="132" r="13" fill="#60a5fa"/><text x="51" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">1</text>
+<text x="73" y="138" font-size="16.5" font-weight="700" class="t">JS built-ins</text>
+<text x="73" y="158" font-size="11" letter-spacing=".5" fill="#60a5fa" font-weight="600">ECMASCRIPT</text>
+<circle cx="43" cy="184" r="2.6" fill="#60a5fa"/>
+<text x="53" y="188" class="b">Array, Object, Map, Set</text>
+<circle cx="43" cy="201.5" r="2.6" fill="#60a5fa"/>
+<text x="53" y="205.5" class="b">Promise, Proxy, Reflect</text>
+<circle cx="43" cy="219" r="2.6" fill="#60a5fa"/>
+<text x="53" y="223" class="b">JSON, Math, Date, Intl</text>
+<circle cx="43" cy="236.5" r="2.6" fill="#60a5fa"/>
+<text x="53" y="240.5" class="b">Error, TypeError, RangeError</text>
+<rect x="300" y="104" width="250" height="171.5" rx="12" fill="#a78bfa" fill-opacity=".07" stroke="#a78bfa" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:16s" x="300" y="104" width="250" height="171.5" rx="12" fill="#a78bfa" fill-opacity=".12" stroke="#a78bfa" stroke-width="3" filter="url(#glow)"/>
+<circle cx="326" cy="132" r="13" fill="#a78bfa"/><text x="326" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">2</text>
+<text x="348" y="138" font-size="16.5" font-weight="700" class="t">Web-standard APIs</text>
+<text x="348" y="158" font-size="11" letter-spacing=".5" fill="#a78bfa" font-weight="600">SAME AS BROWSER</text>
+<circle cx="318" cy="184" r="2.6" fill="#a78bfa"/>
+<text x="328" y="188" class="b">fetch, Request, Response</text>
+<circle cx="318" cy="201.5" r="2.6" fill="#a78bfa"/>
+<text x="328" y="205.5" class="b">URL, URLSearchParams</text>
+<circle cx="318" cy="219" r="2.6" fill="#a78bfa"/>
+<text x="328" y="223" class="b">AbortController, Blob</text>
+<circle cx="318" cy="236.5" r="2.6" fill="#a78bfa"/>
+<text x="328" y="240.5" class="b">TextEncoder, structuredClone</text>
+<text x="313" y="258" class="nw">+ crypto.randomUUID()</text>
+<rect x="575" y="104" width="250" height="171.5" rx="12" fill="#f472b6" fill-opacity=".07" stroke="#f472b6" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:24s" x="575" y="104" width="250" height="171.5" rx="12" fill="#f472b6" fill-opacity=".12" stroke="#f472b6" stroke-width="3" filter="url(#glow)"/>
+<circle cx="601" cy="132" r="13" fill="#f472b6"/><text x="601" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">3</text>
+<text x="623" y="138" font-size="16.5" font-weight="700" class="t">Node-only globals</text>
+<text x="623" y="158" font-size="11" letter-spacing=".5" fill="#f472b6" font-weight="600">RUNTIME</text>
+<circle cx="593" cy="184" r="2.6" fill="#f472b6"/>
+<text x="603" y="188" class="b">process (env, argv, exit)</text>
+<circle cx="593" cy="201.5" r="2.6" fill="#f472b6"/>
+<text x="603" y="205.5" class="b">Buffer (binary data)</text>
+<circle cx="593" cy="219" r="2.6" fill="#f472b6"/>
+<text x="603" y="223" class="b">global / globalThis</text>
+<circle cx="593" cy="236.5" r="2.6" fill="#f472b6"/>
+<text x="603" y="240.5" class="b">setImmediate, queueMicrotask</text>
+<circle cx="593" cy="254" r="2.6" fill="#f472b6"/>
+<text x="603" y="258" class="b">console, setTimeout</text>
+<rect x="850" y="104" width="250" height="171.5" rx="12" fill="#34d399" fill-opacity=".07" stroke="#34d399" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:32s" x="850" y="104" width="250" height="171.5" rx="12" fill="#34d399" fill-opacity=".12" stroke="#34d399" stroke-width="3" filter="url(#glow)"/>
+<circle cx="876" cy="132" r="13" fill="#34d399"/><text x="876" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">4</text>
+<text x="898" y="138" font-size="16.5" font-weight="700" class="t">Core modules</text>
+<text x="898" y="158" font-size="11" letter-spacing=".5" fill="#34d399" font-weight="600">REPL PRE-LOADS THEM</text>
+<circle cx="868" cy="184" r="2.6" fill="#34d399"/>
+<text x="878" y="188" class="b">fs, http, path, os, events</text>
+<circle cx="868" cy="201.5" r="2.6" fill="#34d399"/>
+<text x="878" y="205.5" class="b">crypto, stream, zlib, net</text>
+<circle cx="868" cy="219" r="2.6" fill="#34d399"/>
+<text x="878" y="223" class="b">child_process, cluster</text>
+<text x="863" y="240.5" class="nw">+ In files: require it</text>
+<rect x="1125" y="104" width="250" height="171.5" rx="12" fill="#a3e635" fill-opacity=".07" stroke="#a3e635" stroke-opacity="1" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="1125" y="104" width="250" height="171.5" rx="12" fill="#a3e635" fill-opacity=".12" stroke="#a3e635" stroke-width="3" filter="url(#glow)"/>
+<circle cx="1151" cy="132" r="13" fill="#a3e635"/><text x="1151" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">5</text>
+<text x="1173" y="138" font-size="16.5" font-weight="700" class="t">Module-scope vars</text>
+<text x="1173" y="158" font-size="11" letter-spacing=".5" fill="#a3e635" font-weight="600">NEW · MODULE WRAPPER</text>
+<text x="1138" y="188" class="nw">+ require, module, exports</text>
+<text x="1138" y="205.5" class="nw">+ __dirname, __filename</text>
+<text x="1138" y="223" class="nw">+ Not real globals!</text>
+<text x="1138" y="240.5" class="nw">+ Not available in ESM</text>
+<g class="token"><circle class="ring" r="15" fill="none" stroke="#fff" stroke-width="2"/></g>
+<rect x="25" y="309.5" width="1350" height="292" rx="14" fill="#0b1224" fill-opacity=".85" stroke="#334155"/>
+<rect x="790" y="325.5" width="568" height="246" rx="10" fill="#020617" stroke="#1e293b"/>
+<circle cx="808" cy="341.5" r="4.5" fill="#f87171"/><circle cx="823" cy="341.5" r="4.5" fill="#fbbf24"/><circle cx="838" cy="341.5" r="4.5" fill="#4ade80"/>
+<rect x="45" y="583.5" width="1310" height="4" rx="2" fill="#1e293b"/><rect class="bar" x="45" y="583.5" width="1310" height="4" rx="2" fill="url(#prog)"/>
+<g class="scene" id="scene0" style="animation-delay:0s">
+<text x="48" y="339.5" font-size="12" font-weight="700" letter-spacing="1.5" fill="#e2e8f0">OVERVIEW</text>
+<text x="48" y="367.5" font-size="22" font-weight="800" class="t">Node.js Globals (REPL list)</text>
+<text x="48" y="397.5" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> The slide is the REPL&apos;s list of everything you can use without importing anything. It</text>
+<text x="48" y="417.5" class="body">mixes JS built-ins, web APIs, Node globals and core modules.</text>
+<text x="48" y="445.5" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Knowing which group a name belongs to tells you if it also works in the browser, and</text>
+<text x="48" y="465.5" class="body">whether you must require() it in a file.</text>
+<text x="48" y="493.5" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Module-scope variables like require and __dirname are not real globals at all; a new</text>
+<text x="48" y="513.5" class="body">step explains why.</text>
+<text x="855" y="345.5" font-size="11.5" class="m" font-family="Consolas,monospace">terminal</text>
+<text x="808" y="371.5" class="code" xml:space="preserve">$ node</text>
+<text x="808" y="387" class="code" xml:space="preserve">&gt; &lt;Tab&gt;&lt;Tab&gt;          // prints the list on the slide</text>
+<text x="808" y="402.5" class="code" xml:space="preserve">&gt; Object.getOwnPropertyNames(globalThis).length</text>
+<text x="808" y="418" class="code" xml:space="preserve">&gt; globalThis.setTimeout === setTimeout</text>
+<text x="808" y="433.5" class="code" xml:space="preserve">true</text>
+<text x="808" y="449" class="code" xml:space="preserve">&gt; global === globalThis</text>
+<text x="808" y="464.5" class="code" xml:space="preserve">true</text>
+<text x="1355" y="339.5" font-size="11.5" class="m" text-anchor="end">1 / 7</text>
+</g>
+<g class="scene" id="scene1" style="animation-delay:8s">
+<text x="48" y="339.5" font-size="12" font-weight="700" letter-spacing="1.5" fill="#60a5fa">STEP 1 / 5 · ECMASCRIPT</text>
+<text x="48" y="367.5" font-size="22" font-weight="800" class="t">JS built-ins</text>
+<text x="48" y="397.5" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Everything defined by the JavaScript language itself (the capitalised names). They</text>
+<text x="48" y="417.5" class="body">exist in every JS engine: Chrome, Firefox, Node, Deno.</text>
+<text x="48" y="445.5" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Code that only uses these runs anywhere JavaScript runs.</text>
+<text x="855" y="345.5" font-size="11.5" class="m" font-family="Consolas,monospace">builtins.js</text>
+<text x="808" y="371.5" class="code" xml:space="preserve">const ids = new Set([1, 2, 2, 3]);       // {1, 2, 3}</text>
+<text x="808" y="387" class="code" xml:space="preserve">const cache = new Map([[&apos;a&apos;, 1]]);</text>
+<text x="808" y="402.5" class="code" xml:space="preserve">const big = 2n ** 64n;                    // BigInt</text>
+<text x="808" y="418" class="code" xml:space="preserve">const price = new Intl.NumberFormat(&apos;en-IN&apos;,</text>
+<text x="808" y="433.5" class="code" xml:space="preserve">  { style: &apos;currency&apos;, currency: &apos;INR&apos; }).format(1999);</text>
+<text x="808" y="449" class="code" xml:space="preserve">JSON.parse(&apos;{"ok":true}&apos;);</text>
+<text x="808" y="464.5" class="code" xml:space="preserve">throw new RangeError(&apos;age must be &gt; 0&apos;);</text>
+<text x="1355" y="339.5" font-size="11.5" class="m" text-anchor="end">2 / 7</text>
+</g>
+<g class="scene" id="scene2" style="animation-delay:16s">
+<text x="48" y="339.5" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a78bfa">STEP 2 / 5 · SAME AS BROWSER</text>
+<text x="48" y="367.5" font-size="22" font-weight="800" class="t">Web-standard APIs</text>
+<text x="48" y="397.5" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Node added many browser APIs (fetch, URL, AbortController, TextEncoder...) so the same</text>
+<text x="48" y="417.5" class="body">code runs on both sides.</text>
+<text x="48" y="445.5" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> fetch is global since Node 18, so simple HTTP calls need no axios / node-fetch.</text>
+<text x="48" y="465.5" class="body">crypto.randomUUID() makes unique IDs.</text>
+<text x="855" y="345.5" font-size="11.5" class="m" font-family="Consolas,monospace">web-apis.mjs</text>
+<text x="808" y="371.5" class="code" xml:space="preserve">const ctrl = new AbortController();</text>
+<text x="808" y="387" class="code" xml:space="preserve">setTimeout(() =&gt; ctrl.abort(), 3000);      // 3 s timeout</text>
+<text x="808" y="402.5" class="code" xml:space="preserve"></text>
+<text x="808" y="418" class="code" xml:space="preserve">const res = await fetch(&apos;https://api.github.com/users/octocat&apos;,</text>
+<text x="808" y="433.5" class="code" xml:space="preserve">                        { signal: ctrl.signal });</text>
+<text x="808" y="449" class="code" xml:space="preserve">const user = await res.json();</text>
+<text x="808" y="464.5" class="code" xml:space="preserve"></text>
+<text x="808" y="480" class="code" xml:space="preserve">const url = new URL(&apos;/search?q=node&apos;, &apos;https://x.dev&apos;);</text>
+<text x="808" y="495.5" class="code" xml:space="preserve">console.log(url.searchParams.get(&apos;q&apos;), crypto.randomUUID());</text>
+<text x="1355" y="339.5" font-size="11.5" class="m" text-anchor="end">3 / 7</text>
+</g>
+<g class="scene" id="scene3" style="animation-delay:24s">
+<text x="48" y="339.5" font-size="12" font-weight="700" letter-spacing="1.5" fill="#f472b6">STEP 3 / 5 · RUNTIME</text>
+<text x="48" y="367.5" font-size="22" font-weight="800" class="t">Node-only globals</text>
+<text x="48" y="397.5" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Globals that only Node has: process (info about the running program), Buffer (raw</text>
+<text x="48" y="417.5" class="body">bytes), global, setImmediate and friends.</text>
+<text x="48" y="445.5" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> process.env is how config and secrets reach your app; Buffer is what files and sockets</text>
+<text x="48" y="465.5" class="body">give you.</text>
+<text x="855" y="345.5" font-size="11.5" class="m" font-family="Consolas,monospace">process.js</text>
+<text x="808" y="371.5" class="code" xml:space="preserve">console.log(process.env.NODE_ENV);     // config</text>
+<text x="808" y="387" class="code" xml:space="preserve">console.log(process.argv.slice(2));    // CLI args</text>
+<text x="808" y="402.5" class="code" xml:space="preserve">console.log(process.pid, process.platform);</text>
+<text x="808" y="418" class="code" xml:space="preserve"></text>
+<text x="808" y="433.5" class="code" xml:space="preserve">const buf = Buffer.from(&apos;hi&apos;);          // &lt;Buffer 68 69&gt;</text>
+<text x="808" y="449" class="code" xml:space="preserve">console.log(buf.toString(&apos;base64&apos;));    // aGk=</text>
+<text x="808" y="464.5" class="code" xml:space="preserve"></text>
+<text x="808" y="480" class="code" xml:space="preserve">process.on(&apos;exit&apos;, (code) =&gt; console.log(&apos;bye&apos;, code));</text>
+<text x="1355" y="339.5" font-size="11.5" class="m" text-anchor="end">4 / 7</text>
+</g>
+<g class="scene" id="scene4" style="animation-delay:32s">
+<text x="48" y="339.5" font-size="12" font-weight="700" letter-spacing="1.5" fill="#34d399">STEP 4 / 5 · REPL PRE-LOADS THEM</text>
+<text x="48" y="367.5" font-size="22" font-weight="800" class="t">Core modules</text>
+<text x="48" y="397.5" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> The lowercase names (fs, http, os, crypto...) are core modules. The REPL pre-loads</text>
+<text x="48" y="417.5" class="body">them for convenience; in a real .js file you must require/import them.</text>
+<text x="48" y="445.5" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Use the node: prefix, e.g. require(&apos;node:fs&apos;), so it is obviously built-in and can</text>
+<text x="48" y="465.5" class="body">never be confused with an npm package.</text>
+<text x="855" y="345.5" font-size="11.5" class="m" font-family="Consolas,monospace">app.js</text>
+<text x="808" y="371.5" class="code" xml:space="preserve">// REPL:  &gt; fs.existsSync(&apos;.&apos;)   works without require</text>
+<text x="808" y="387" class="code" xml:space="preserve"></text>
+<text x="808" y="402.5" class="code" xml:space="preserve">// in a file (CommonJS):</text>
+<text x="808" y="418" class="code" xml:space="preserve">const fs = require(&apos;node:fs&apos;);</text>
+<text x="808" y="433.5" class="code" xml:space="preserve">const path = require(&apos;node:path&apos;);</text>
+<text x="808" y="449" class="code" xml:space="preserve"></text>
+<text x="808" y="464.5" class="code" xml:space="preserve">// in a file (ES module):</text>
+<text x="808" y="480" class="code" xml:space="preserve">import { readFile } from &apos;node:fs/promises&apos;;</text>
+<text x="1355" y="339.5" font-size="11.5" class="m" text-anchor="end">5 / 7</text>
+</g>
+<g class="scene" id="scene5" style="animation-delay:40s">
+<text x="48" y="339.5" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">STEP 5 / 5 · NEW · MODULE WRAPPER</text>
+<text x="48" y="367.5" font-size="22" font-weight="800" class="t">Module-scope vars</text>
+<text x="48" y="397.5" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> require, module, exports, __filename and __dirname look global but are not: Node wraps</text>
+<text x="48" y="417.5" class="body">every CommonJS file in a function and passes them in as parameters.</text>
+<text x="48" y="445.5" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> That is why each file has its own module.exports and its own __dirname.</text>
+<text x="48" y="473.5" class="body"><tspan class="lbl" fill="#a3e635">New concept:</tspan> In ES modules (import/export) they do not exist; use import.meta.dirname /</text>
+<text x="48" y="493.5" class="body">import.meta.filename (Node 20.11+).</text>
+<text x="855" y="345.5" font-size="11.5" class="m" font-family="Consolas,monospace">the module wrapper</text>
+<text x="808" y="371.5" class="code" xml:space="preserve">// Node secretly wraps every CommonJS file like this:</text>
+<text x="808" y="387" class="code" xml:space="preserve">(function (exports, require, module, __filename, __dirname) {</text>
+<text x="808" y="402.5" class="code" xml:space="preserve">  // ...your file&apos;s code...</text>
+<text x="808" y="418" class="code" xml:space="preserve">});</text>
+<text x="808" y="433.5" class="code" xml:space="preserve"></text>
+<text x="808" y="449" class="code" xml:space="preserve">console.log(__dirname);          // folder of this file</text>
+<text x="808" y="464.5" class="code" xml:space="preserve">console.log(arguments.length);   // 5  ← proof of the wrapper</text>
+<text x="808" y="480" class="code" xml:space="preserve"></text>
+<text x="808" y="495.5" class="code" xml:space="preserve">// ESM: import.meta.dirname, import.meta.filename</text>
+<text x="1355" y="339.5" font-size="11.5" class="m" text-anchor="end">6 / 7</text>
+</g>
+<g class="scene" id="scene6" style="animation-delay:48s">
+<text x="48" y="339.5" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">RECAP</text>
+<text x="48" y="367.5" font-size="22" font-weight="800" class="t">Recap + concepts added</text>
+<text x="48" y="397.5" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Four kinds of global: JS built-ins (everywhere), web APIs (browser + Node), Node-only</text>
+<text x="48" y="417.5" class="body">globals (process, Buffer), and core modules (require them in files).</text>
+<text x="48" y="445.5" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> The module wrapper behind require / __dirname, the node: prefix, and the ESM</text>
+<text x="48" y="465.5" class="body">replacements.</text>
+<text x="855" y="345.5" font-size="11.5" class="m" font-family="Consolas,monospace">cheat sheet</text>
+<text x="808" y="371.5" class="code" xml:space="preserve">Array, Promise, JSON      → JavaScript language</text>
+<text x="808" y="387" class="code" xml:space="preserve">fetch, URL, AbortController → web standard</text>
+<text x="808" y="402.5" class="code" xml:space="preserve">process, Buffer, global   → Node only</text>
+<text x="808" y="418" class="code" xml:space="preserve">fs, http, crypto          → core modules (require)</text>
+<text x="808" y="433.5" class="code" xml:space="preserve">require, __dirname        → module wrapper params</text>
+<text x="1355" y="339.5" font-size="11.5" class="m" text-anchor="end">7 / 7</text>
+</g>
+<rect x="25" y="617.5" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".05" stroke="#34d399" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:48s" x="25" y="617.5" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".1" stroke="#34d399" stroke-width="2.5" filter="url(#glow)"/>
+<text x="41" y="645.5" font-size="15" font-weight="700" fill="#34d399">Remember</text>
+<text x="41" y="671.5" font-size="12.5" class="b">global === globalThis in Node</text>
+<text x="41" y="691.5" font-size="12.5" class="b">Core modules need require() outside the REPL</text>
+<rect x="481.6666666666667" y="617.5" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".05" stroke="#f87171" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:48s" x="481.6666666666667" y="617.5" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".1" stroke="#f87171" stroke-width="2.5" filter="url(#glow)"/>
+<text x="497.6666666666667" y="645.5" font-size="15" font-weight="700" fill="#f87171">Common mistake</text>
+<text x="497.6666666666667" y="671.5" font-size="12.5" class="b">Using __dirname inside an ES module</text>
+<text x="497.6666666666667" y="691.5" font-size="12.5" class="b">→ use import.meta.dirname instead</text>
+<rect x="938.3333333333334" y="617.5" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".05" stroke="#fbbf24" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:48s" x="938.3333333333334" y="617.5" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".1" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+<text x="954.3333333333334" y="645.5" font-size="15" font-weight="700" fill="#fbbf24">Interview question</text>
+<text x="954.3333333333334" y="671.5" font-size="12.5" class="b">Q: Is require a global variable?</text>
+<text x="954.3333333333334" y="691.5" font-size="12.5" class="b">A: No, a parameter of the module wrapper</text>
+</svg>

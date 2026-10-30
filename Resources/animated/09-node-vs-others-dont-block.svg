@@ -1,0 +1,244 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 922" width="1400" height="922" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<title>Event Loop Summary: Node vs. Others</title>
+<desc>Auto-playing 64s step-by-step explainer of "Event Loop Summary: Node vs. Others" (from img_9.png). Each step is highlighted in turn with what happens, why it matters, missing concepts added in lime, and a Node.js code example. Hover to pause.</desc>
+<style>
+.scene,.hl{opacity:0;animation:show 64s linear infinite}
+@keyframes show{0%{opacity:0}0.781%{opacity:1}11.719%{opacity:1}12.500%{opacity:0}100%{opacity:0}}
+@keyframes tok{0%{transform:translate(51px,132px)}12.500%{transform:translate(51px,132px)}14.063%{transform:translate(51px,132px)}25.000%{transform:translate(51px,132px)}26.563%{transform:translate(509.3333333333333px,132px)}37.500%{transform:translate(509.3333333333333px,132px)}39.063%{transform:translate(967.6666666666666px,132px)}50.000%{transform:translate(967.6666666666666px,132px)}51.563%{transform:translate(967.6666666666666px,336px)}62.500%{transform:translate(967.6666666666666px,336px)}64.063%{transform:translate(509.3333333333333px,336px)}75.000%{transform:translate(509.3333333333333px,336px)}76.563%{transform:translate(51px,336px)}87.500%{transform:translate(51px,336px)}89.063%{transform:translate(51px,132px)}100%{transform:translate(51px,132px)}}
+@keyframes flow{to{stroke-dashoffset:-16}}
+@keyframes pulse{0%,100%{r:15;opacity:.9}50%{r:21;opacity:.35}}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.token{animation:tok 64s ease-in-out infinite}
+.token .ring{animation:pulse 1.4s ease-in-out infinite}
+.flow{stroke-dasharray:8 8;animation:flow .8s linear infinite}
+.bar{transform-box:fill-box;transform-origin:left;animation:bar 64s linear infinite}
+svg:hover *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#scene0{opacity:1}}
+.t{fill:#e2e8f0}.m{fill:#94a3b8}.b{font-size:12.5px;fill:#cbd5e1}.nw{font-size:12.5px;fill:#a3e635;font-weight:600}
+.code{font-family:'Cascadia Code',Consolas,ui-monospace,monospace;font-size:12.5px;fill:#e2e8f0;white-space:pre}
+.body{font-size:14.5px;fill:#cbd5e1}.lbl{font-weight:700}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#0f1f1a"/></linearGradient>
+<linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#5fa04e"/><stop offset=".5" stop-color="#22d3ee"/><stop offset="1" stop-color="#a3e635"/></linearGradient>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker>
+</defs>
+<rect width="1400" height="922" fill="#070b16"/><rect x="6" y="6" width="1388" height="910" rx="22" fill="url(#bg)" stroke="#1f4d3a"/>
+<polygon points="44,28 60,37 60,55 44,64 28,55 28,37" fill="#5fa04e"/><text x="44" y="51" font-size="12" font-weight="800" fill="#0b1224" text-anchor="middle">09</text>
+<text x="74" y="54" font-size="28" font-weight="800" class="t">Event Loop Summary: Node vs. Others</text>
+<text x="30" y="84" font-size="14" class="m">One thread with an event loop vs. one thread per user, and the golden rule: DON&apos;T BLOCK!</text>
+<g font-size="12.5" class="m"><circle cx="1170" cy="44" r="9" fill="none" stroke="#fff" stroke-width="2"/><text x="1186" y="48">current step</text>
+<text x="1160" y="74" fill="#a3e635" font-weight="700">+ added concept</text><text x="1290" y="74">· hover = pause</text></g>
+<rect x="25" y="104" width="433.3333333333333" height="154" rx="12" fill="#34d399" fill-opacity=".07" stroke="#34d399" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:8s" x="25" y="104" width="433.3333333333333" height="154" rx="12" fill="#34d399" fill-opacity=".12" stroke="#34d399" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="132" r="13" fill="#34d399"/><text x="51" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">1</text>
+<text x="73" y="138" font-size="16.5" font-weight="700" class="t">Node: 1 thread for all</text>
+<text x="73" y="158" font-size="11" letter-spacing=".5" fill="#34d399" font-weight="600">EVENT LOOP</text>
+<circle cx="43" cy="184" r="2.6" fill="#34d399"/>
+<text x="53" y="188" class="b">Every user → 1 thread</text>
+<circle cx="43" cy="201.5" r="2.6" fill="#34d399"/>
+<text x="53" y="205.5" class="b">I/O offloaded, thread free</text>
+<circle cx="43" cy="219" r="2.6" fill="#34d399"/>
+<text x="53" y="223" class="b">Low memory, high concurrency</text>
+<rect x="483.3333333333333" y="104" width="433.3333333333333" height="154" rx="12" fill="#22d3ee" fill-opacity=".07" stroke="#22d3ee" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:16s" x="483.3333333333333" y="104" width="433.3333333333333" height="154" rx="12" fill="#22d3ee" fill-opacity=".12" stroke="#22d3ee" stroke-width="3" filter="url(#glow)"/>
+<circle cx="509.3333333333333" cy="132" r="13" fill="#22d3ee"/><text x="509.3333333333333" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">2</text>
+<text x="531.3333333333333" y="138" font-size="16.5" font-weight="700" class="t">Apache/PHP: thread per user</text>
+<text x="531.3333333333333" y="158" font-size="11" letter-spacing=".5" fill="#22d3ee" font-weight="600">CLASSIC MODEL</text>
+<circle cx="501.3333333333333" cy="184" r="2.6" fill="#22d3ee"/>
+<text x="511.3333333333333" y="188" class="b">New thread per request</text>
+<circle cx="501.3333333333333" cy="201.5" r="2.6" fill="#22d3ee"/>
+<text x="511.3333333333333" y="205.5" class="b">Thread idles during I/O</text>
+<circle cx="501.3333333333333" cy="219" r="2.6" fill="#22d3ee"/>
+<text x="511.3333333333333" y="223" class="b">Memory grows per user</text>
+<text x="496.3333333333333" y="240.5" class="nw">+ Today: PHP-FPM pools</text>
+<rect x="941.6666666666666" y="104" width="433.3333333333333" height="154" rx="12" fill="#60a5fa" fill-opacity=".07" stroke="#60a5fa" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:24s" x="941.6666666666666" y="104" width="433.3333333333333" height="154" rx="12" fill="#60a5fa" fill-opacity=".12" stroke="#60a5fa" stroke-width="3" filter="url(#glow)"/>
+<circle cx="967.6666666666666" cy="132" r="13" fill="#60a5fa"/><text x="967.6666666666666" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">3</text>
+<text x="989.6666666666666" y="138" font-size="16.5" font-weight="700" class="t">Don&apos;t: sync APIs</text>
+<text x="989.6666666666666" y="158" font-size="11" letter-spacing=".5" fill="#60a5fa" font-weight="600">DON&apos;T BLOCK</text>
+<circle cx="959.6666666666666" cy="184" r="2.6" fill="#60a5fa"/>
+<text x="969.6666666666666" y="188" class="b">No readFileSync in callbacks</text>
+<circle cx="959.6666666666666" cy="201.5" r="2.6" fill="#60a5fa"/>
+<text x="969.6666666666666" y="205.5" class="b">No crypto / zlib *Sync</text>
+<circle cx="959.6666666666666" cy="219" r="2.6" fill="#60a5fa"/>
+<text x="969.6666666666666" y="223" class="b">Sync is OK at startup only</text>
+<rect x="941.6666666666666" y="308" width="433.3333333333333" height="154" rx="12" fill="#a78bfa" fill-opacity=".07" stroke="#a78bfa" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:32s" x="941.6666666666666" y="308" width="433.3333333333333" height="154" rx="12" fill="#a78bfa" fill-opacity=".12" stroke="#a78bfa" stroke-width="3" filter="url(#glow)"/>
+<circle cx="967.6666666666666" cy="336" r="13" fill="#a78bfa"/><text x="967.6666666666666" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">4</text>
+<text x="989.6666666666666" y="342" font-size="16.5" font-weight="700" class="t">Don&apos;t: heavy CPU</text>
+<text x="989.6666666666666" y="362" font-size="11" letter-spacing=".5" fill="#a78bfa" font-weight="600">DON&apos;T BLOCK</text>
+<circle cx="959.6666666666666" cy="388" r="2.6" fill="#a78bfa"/>
+<text x="969.6666666666666" y="392" class="b">Loops inside big loops</text>
+<circle cx="959.6666666666666" cy="405.5" r="2.6" fill="#a78bfa"/>
+<text x="969.6666666666666" y="409.5" class="b">JSON on huge objects</text>
+<circle cx="959.6666666666666" cy="423" r="2.6" fill="#a78bfa"/>
+<text x="969.6666666666666" y="427" class="b">Complex regex (nested +)</text>
+<text x="954.6666666666666" y="444.5" class="nw">+ ReDoS attacks</text>
+<rect x="483.3333333333333" y="308" width="433.3333333333333" height="154" rx="12" fill="#a3e635" fill-opacity=".07" stroke="#a3e635" stroke-opacity="1" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="483.3333333333333" y="308" width="433.3333333333333" height="154" rx="12" fill="#a3e635" fill-opacity=".12" stroke="#a3e635" stroke-width="3" filter="url(#glow)"/>
+<circle cx="509.3333333333333" cy="336" r="13" fill="#a3e635"/><text x="509.3333333333333" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">5</text>
+<text x="531.3333333333333" y="342" font-size="16.5" font-weight="700" class="t">How to fix it</text>
+<text x="531.3333333333333" y="362" font-size="11" letter-spacing=".5" fill="#a3e635" font-weight="600">NEW · SOLUTIONS</text>
+<text x="496.3333333333333" y="392" class="nw">+ Async APIs and streams</text>
+<text x="496.3333333333333" y="409.5" class="nw">+ worker_threads for CPU</text>
+<text x="496.3333333333333" y="427" class="nw">+ Chunk work: setImmediate</text>
+<text x="496.3333333333333" y="444.5" class="nw">+ Job queue (BullMQ)</text>
+<rect x="25" y="308" width="433.3333333333333" height="154" rx="12" fill="#a3e635" fill-opacity=".07" stroke="#a3e635" stroke-opacity="1" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:48s" x="25" y="308" width="433.3333333333333" height="154" rx="12" fill="#a3e635" fill-opacity=".12" stroke="#a3e635" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="336" r="13" fill="#a3e635"/><text x="51" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">6</text>
+<text x="73" y="342" font-size="16.5" font-weight="700" class="t">Measure blocking</text>
+<text x="73" y="362" font-size="11" letter-spacing=".5" fill="#a3e635" font-weight="600">NEW · OBSERVE</text>
+<text x="38" y="392" class="nw">+ perf_hooks: loop delay</text>
+<text x="38" y="409.5" class="nw">+ clinic.js / --prof</text>
+<text x="38" y="427" class="nw">+ Alert if lag &gt; 100 ms</text>
+<g class="token"><circle class="ring" r="15" fill="none" stroke="#fff" stroke-width="2"/></g>
+<rect x="25" y="496" width="1350" height="292" rx="14" fill="#0b1224" fill-opacity=".85" stroke="#334155"/>
+<rect x="790" y="512" width="568" height="246" rx="10" fill="#020617" stroke="#1e293b"/>
+<circle cx="808" cy="528" r="4.5" fill="#f87171"/><circle cx="823" cy="528" r="4.5" fill="#fbbf24"/><circle cx="838" cy="528" r="4.5" fill="#4ade80"/>
+<rect x="45" y="770" width="1310" height="4" rx="2" fill="#1e293b"/><rect class="bar" x="45" y="770" width="1310" height="4" rx="2" fill="url(#prog)"/>
+<g class="scene" id="scene0" style="animation-delay:0s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#e2e8f0">OVERVIEW</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Event Loop Summary: Node vs. Others</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Node serves every user on ONE thread with an event loop and offloads heavy work.</text>
+<text x="48" y="604" class="body">Apache + PHP classically create a NEW THREAD per user.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Node&apos;s model is lighter, but it puts responsibility on you: if your code blocks the</text>
+<text x="48" y="652" class="body">thread, ALL users wait.</text>
+<text x="48" y="680" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> How to fix blocking code and how to measure event-loop lag.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">two models</text>
+<text x="808" y="558" class="code" xml:space="preserve"> Node.js                       Apache / PHP (classic)</text>
+<text x="808" y="573.5" class="code" xml:space="preserve"> user1 ─┐                      user1 ─► NEW THREAD</text>
+<text x="808" y="589" class="code" xml:space="preserve"> user2 ─┼─► SINGLE THREAD      user2 ─► NEW THREAD</text>
+<text x="808" y="604.5" class="code" xml:space="preserve"> user3 ─┤   + event loop       user3 ─► NEW THREAD</text>
+<text x="808" y="620" class="code" xml:space="preserve"> user4 ─┘   ─► thread pool     user4 ─► NEW THREAD</text>
+<text x="808" y="635.5" class="code" xml:space="preserve"></text>
+<text x="808" y="651" class="code" xml:space="preserve"> cheap per user, but          isolated per user, but</text>
+<text x="808" y="666.5" class="code" xml:space="preserve"> DON&apos;T BLOCK the one thread   costs RAM per thread</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">1 / 8</text>
+</g>
+<g class="scene" id="scene1" style="animation-delay:8s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#34d399">STEP 1 / 6 · EVENT LOOP</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Node: 1 thread for all</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> All requests share one thread. While a request waits for I/O, the thread handles other</text>
+<text x="48" y="604" class="body">requests.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Thousands of mostly-waiting connections fit in very little memory.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">server.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">http.createServer(async (req, res) =&gt; {</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">  const rows = await db.query(&apos;SELECT ...&apos;); // thread is free</text>
+<text x="808" y="589" class="code" xml:space="preserve">  res.end(JSON.stringify(rows));             // while waiting</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">}).listen(3000);</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">2 / 8</text>
+</g>
+<g class="scene" id="scene2" style="animation-delay:16s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#22d3ee">STEP 2 / 6 · CLASSIC MODEL</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Apache/PHP: thread per user</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Classic servers give each request its own thread or process. Simple and isolated, but</text>
+<text x="48" y="604" class="body">each one costs memory and mostly sits idle waiting for I/O.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Modern PHP (PHP-FPM, Nginx) reuses a pool of workers, but the model is still one</text>
+<text x="48" y="652" class="body">worker busy per request.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">cost comparison</text>
+<text x="808" y="558" class="code" xml:space="preserve"> 10 000 users, classic:</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">   10 000 threads/processes → lots of RAM,</text>
+<text x="808" y="589" class="code" xml:space="preserve">   mostly waiting on the DB</text>
+<text x="808" y="604.5" class="code" xml:space="preserve"></text>
+<text x="808" y="620" class="code" xml:space="preserve"> 10 000 users, Node:</text>
+<text x="808" y="635.5" class="code" xml:space="preserve">   1 JS thread + event loop + small pool</text>
+<text x="808" y="651" class="code" xml:space="preserve">   → but ONE slow callback delays all 10 000</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">3 / 8</text>
+</g>
+<g class="scene" id="scene3" style="animation-delay:24s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#60a5fa">STEP 3 / 6 · DON&apos;T BLOCK</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Don&apos;t: sync APIs</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Don&apos;t use sync versions of functions in the fs, crypto and zlib modules inside your</text>
+<text x="48" y="604" class="body">callback functions.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> A sync call holds the only thread until it finishes; every other user is frozen.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">route.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">// ✗ blocks EVERY user while the file is read</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">app.get(&apos;/report&apos;, (req, res) =&gt; {</text>
+<text x="808" y="589" class="code" xml:space="preserve">  res.send(fs.readFileSync(&apos;big.csv&apos;));</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">});</text>
+<text x="808" y="620" class="code" xml:space="preserve"></text>
+<text x="808" y="635.5" class="code" xml:space="preserve">// ✓ non-blocking (streams it)</text>
+<text x="808" y="651" class="code" xml:space="preserve">app.get(&apos;/report&apos;, (req, res) =&gt; {</text>
+<text x="808" y="666.5" class="code" xml:space="preserve">  fs.createReadStream(&apos;big.csv&apos;).pipe(res);</text>
+<text x="808" y="682" class="code" xml:space="preserve">});</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">4 / 8</text>
+</g>
+<g class="scene" id="scene4" style="animation-delay:32s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a78bfa">STEP 4 / 6 · DON&apos;T BLOCK</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Don&apos;t: heavy CPU</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Don&apos;t do complex calculations (loops inside loops), be careful with JSON.parse /</text>
+<text x="48" y="604" class="body">stringify of large objects, and avoid regexes with nested quantifiers.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> A bad regex is a security bug (ReDoS): one crafted input string can freeze your whole</text>
+<text x="48" y="652" class="body">server.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">blocking.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">// ✗ parsing a 200 MB string freezes the server</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">const data = JSON.parse(hugeString);</text>
+<text x="808" y="589" class="code" xml:space="preserve"></text>
+<text x="808" y="604.5" class="code" xml:space="preserve">// ✗ ReDoS: nested quantifier → exponential backtracking</text>
+<text x="808" y="620" class="code" xml:space="preserve">/^(a+)+$/.test(&apos;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!&apos;);</text>
+<text x="808" y="635.5" class="code" xml:space="preserve"></text>
+<text x="808" y="651" class="code" xml:space="preserve">// ✓ /^a+$/ matches the same strings safely</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">5 / 8</text>
+</g>
+<g class="scene" id="scene5" style="animation-delay:40s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">STEP 5 / 6 · NEW · SOLUTIONS</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">How to fix it</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Use async APIs and streams, move CPU work to worker_threads, split long loops into</text>
+<text x="48" y="604" class="body">chunks, or push heavy jobs to a queue processed elsewhere.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">chunking.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">// split a big loop so other callbacks get turns</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">function processChunk(items, i = 0) {</text>
+<text x="808" y="589" class="code" xml:space="preserve">  const end = Math.min(i + 1000, items.length);</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">  for (; i &lt; end; i++) handle(items[i]);</text>
+<text x="808" y="620" class="code" xml:space="preserve">  if (i &lt; items.length) setImmediate(() =&gt; processChunk(items, i));</text>
+<text x="808" y="635.5" class="code" xml:space="preserve">}</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">6 / 8</text>
+</g>
+<g class="scene" id="scene6" style="animation-delay:48s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">STEP 6 / 6 · NEW · OBSERVE</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Measure blocking</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Measure event-loop delay: how late callbacks run compared to when they should. Rising</text>
+<text x="48" y="604" class="body">lag = something is blocking.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">loop-lag.js</text>
+<text x="808" y="558" class="code" xml:space="preserve">const { monitorEventLoopDelay } = require(&apos;node:perf_hooks&apos;);</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">const h = monitorEventLoopDelay({ resolution: 20 });</text>
+<text x="808" y="589" class="code" xml:space="preserve">h.enable();</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">setInterval(() =&gt; {</text>
+<text x="808" y="620" class="code" xml:space="preserve">  console.log(&apos;p99 lag ms:&apos;, h.percentile(99) / 1e6);</text>
+<text x="808" y="635.5" class="code" xml:space="preserve">  h.reset();</text>
+<text x="808" y="651" class="code" xml:space="preserve">}, 5000);</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">7 / 8</text>
+</g>
+<g class="scene" id="scene7" style="animation-delay:56s">
+<text x="48" y="526" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">RECAP</text>
+<text x="48" y="554" font-size="22" font-weight="800" class="t">Recap + concepts added</text>
+<text x="48" y="584" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Node = one thread for everyone. That is fast and cheap only as long as no callback</text>
+<text x="48" y="604" class="body">blocks it.</text>
+<text x="48" y="632" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Fixes (async, streams, workers, chunking, queues), ReDoS, and measuring loop lag.</text>
+<text x="855" y="532" font-size="11.5" class="m" font-family="Consolas,monospace">blocking checklist</text>
+<text x="808" y="558" class="code" xml:space="preserve">[ ] no *Sync calls inside handlers</text>
+<text x="808" y="573.5" class="code" xml:space="preserve">[ ] big files → streams</text>
+<text x="808" y="589" class="code" xml:space="preserve">[ ] CPU work → worker_threads / queue</text>
+<text x="808" y="604.5" class="code" xml:space="preserve">[ ] no nested-quantifier regex on user input</text>
+<text x="808" y="620" class="code" xml:space="preserve">[ ] watch event-loop lag in production</text>
+<text x="1355" y="526" font-size="11.5" class="m" text-anchor="end">8 / 8</text>
+</g>
+<rect x="25" y="804" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".05" stroke="#34d399" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:56s" x="25" y="804" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".1" stroke="#34d399" stroke-width="2.5" filter="url(#glow)"/>
+<text x="41" y="832" font-size="15" font-weight="700" fill="#34d399">Remember</text>
+<text x="41" y="858" font-size="12.5" class="b">Never block the event loop</text>
+<text x="41" y="878" font-size="12.5" class="b">One slow callback slows down every user</text>
+<rect x="481.6666666666667" y="804" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".05" stroke="#f87171" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:56s" x="481.6666666666667" y="804" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".1" stroke="#f87171" stroke-width="2.5" filter="url(#glow)"/>
+<text x="497.6666666666667" y="832" font-size="15" font-weight="700" fill="#f87171">Common mistake</text>
+<text x="497.6666666666667" y="858" font-size="12.5" class="b">fs.readFileSync inside a route handler</text>
+<text x="497.6666666666667" y="878" font-size="12.5" class="b">→ use async fs or streams</text>
+<rect x="938.3333333333334" y="804" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".05" stroke="#fbbf24" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:56s" x="938.3333333333334" y="804" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".1" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+<text x="954.3333333333334" y="832" font-size="15" font-weight="700" fill="#fbbf24">Interview question</text>
+<text x="954.3333333333334" y="858" font-size="12.5" class="b">Q: How do you handle CPU-heavy work in Node?</text>
+<text x="954.3333333333334" y="878" font-size="12.5" class="b">A: worker_threads, job queue, or chunking</text>
+</svg>

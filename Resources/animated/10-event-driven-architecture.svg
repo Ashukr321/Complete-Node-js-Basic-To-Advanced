@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 718" width="1400" height="718" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<title>The Event-Driven Architecture</title>
+<desc>Auto-playing 56s step-by-step explainer of "The Event-Driven Architecture" (from img_10.png). Each step is highlighted in turn with what happens, why it matters, missing concepts added in lime, and a Node.js code example. Hover to pause.</desc>
+<style>
+.scene,.hl{opacity:0;animation:show 56s linear infinite}
+@keyframes show{0%{opacity:0}0.893%{opacity:1}13.393%{opacity:1}14.286%{opacity:0}100%{opacity:0}}
+@keyframes tok{0%{transform:translate(51px,132px)}14.286%{transform:translate(51px,132px)}16.071%{transform:translate(51px,132px)}28.571%{transform:translate(51px,132px)}30.357%{transform:translate(326px,132px)}42.857%{transform:translate(326px,132px)}44.643%{transform:translate(601px,132px)}57.143%{transform:translate(601px,132px)}58.929%{transform:translate(876px,132px)}71.429%{transform:translate(876px,132px)}73.214%{transform:translate(1151px,132px)}85.714%{transform:translate(1151px,132px)}87.500%{transform:translate(51px,132px)}100%{transform:translate(51px,132px)}}
+@keyframes flow{to{stroke-dashoffset:-16}}
+@keyframes pulse{0%,100%{r:15;opacity:.9}50%{r:21;opacity:.35}}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.token{animation:tok 56s ease-in-out infinite}
+.token .ring{animation:pulse 1.4s ease-in-out infinite}
+.flow{stroke-dasharray:8 8;animation:flow .8s linear infinite}
+.bar{transform-box:fill-box;transform-origin:left;animation:bar 56s linear infinite}
+svg:hover *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#scene0{opacity:1}}
+.t{fill:#e2e8f0}.m{fill:#94a3b8}.b{font-size:12.5px;fill:#cbd5e1}.nw{font-size:12.5px;fill:#a3e635;font-weight:600}
+.code{font-family:'Cascadia Code',Consolas,ui-monospace,monospace;font-size:12.5px;fill:#e2e8f0;white-space:pre}
+.body{font-size:14.5px;fill:#cbd5e1}.lbl{font-weight:700}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#0f1f1a"/></linearGradient>
+<linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#5fa04e"/><stop offset=".5" stop-color="#22d3ee"/><stop offset="1" stop-color="#a3e635"/></linearGradient>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker>
+</defs>
+<rect width="1400" height="718" fill="#070b16"/><rect x="6" y="6" width="1388" height="706" rx="22" fill="url(#bg)" stroke="#1f4d3a"/>
+<polygon points="44,28 60,37 60,55 44,64 28,55 28,37" fill="#5fa04e"/><text x="44" y="51" font-size="12" font-weight="800" fill="#0b1224" text-anchor="middle">10</text>
+<text x="74" y="54" font-size="28" font-weight="800" class="t">The Event-Driven Architecture</text>
+<text x="30" y="84" font-size="14" class="m">Event emitter → emits events → event listener → calls → attached callback function</text>
+<g font-size="12.5" class="m"><circle cx="1170" cy="44" r="9" fill="none" stroke="#fff" stroke-width="2"/><text x="1186" y="48">current step</text>
+<text x="1160" y="74" fill="#a3e635" font-weight="700">+ added concept</text><text x="1290" y="74">· hover = pause</text></g>
+<line x1="278" y1="181" x2="295" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<text x="286.5" y="172" font-size="10" class="m" text-anchor="middle">emits</text>
+<line x1="553" y1="181" x2="570" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<text x="561.5" y="172" font-size="10" class="m" text-anchor="middle">calls</text>
+<line x1="828" y1="181" x2="845" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1103" y1="181" x2="1120" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<rect x="25" y="104" width="250" height="154" rx="12" fill="#2dd4bf" fill-opacity=".07" stroke="#2dd4bf" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:8s" x="25" y="104" width="250" height="154" rx="12" fill="#2dd4bf" fill-opacity=".12" stroke="#2dd4bf" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="132" r="13" fill="#2dd4bf"/><text x="51" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">1</text>
+<text x="73" y="138" font-size="16.5" font-weight="700" class="t">Event emitter</text>
+<text x="73" y="158" font-size="11" letter-spacing=".5" fill="#2dd4bf" font-weight="600">EMITS EVENTS</text>
+<circle cx="43" cy="184" r="2.6" fill="#2dd4bf"/>
+<text x="53" y="188" class="b">Emits named events</text>
+<circle cx="43" cy="201.5" r="2.6" fill="#2dd4bf"/>
+<text x="53" y="205.5" class="b">server, stream, socket</text>
+<circle cx="43" cy="219" r="2.6" fill="#2dd4bf"/>
+<text x="53" y="223" class="b">Instance of EventEmitter</text>
+<rect x="300" y="104" width="250" height="154" rx="12" fill="#38bdf8" fill-opacity=".07" stroke="#38bdf8" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:16s" x="300" y="104" width="250" height="154" rx="12" fill="#38bdf8" fill-opacity=".12" stroke="#38bdf8" stroke-width="3" filter="url(#glow)"/>
+<circle cx="326" cy="132" r="13" fill="#38bdf8"/><text x="326" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">2</text>
+<text x="348" y="138" font-size="16.5" font-weight="700" class="t">Event listener</text>
+<text x="348" y="158" font-size="11" letter-spacing=".5" fill="#38bdf8" font-weight="600">LISTENS</text>
+<circle cx="318" cy="184" r="2.6" fill="#38bdf8"/>
+<text x="328" y="188" class="b">server.on(&apos;request&apos;, fn)</text>
+<circle cx="318" cy="201.5" r="2.6" fill="#38bdf8"/>
+<text x="328" y="205.5" class="b">Subscribes to one event name</text>
+<rect x="575" y="104" width="250" height="154" rx="12" fill="#818cf8" fill-opacity=".07" stroke="#818cf8" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:24s" x="575" y="104" width="250" height="154" rx="12" fill="#818cf8" fill-opacity=".12" stroke="#818cf8" stroke-width="3" filter="url(#glow)"/>
+<circle cx="601" cy="132" r="13" fill="#818cf8"/><text x="601" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">3</text>
+<text x="623" y="138" font-size="16.5" font-weight="700" class="t">Attached callback</text>
+<text x="623" y="158" font-size="11" letter-spacing=".5" fill="#818cf8" font-weight="600">RUNS</text>
+<circle cx="593" cy="184" r="2.6" fill="#818cf8"/>
+<text x="603" y="188" class="b">Called with the event data</text>
+<circle cx="593" cy="201.5" r="2.6" fill="#818cf8"/>
+<text x="603" y="205.5" class="b">(req, res) =&gt; { ... }</text>
+<circle cx="593" cy="219" r="2.6" fill="#818cf8"/>
+<text x="603" y="223" class="b">Browser gets the response</text>
+<rect x="850" y="104" width="250" height="154" rx="12" fill="#a3e635" fill-opacity=".07" stroke="#a3e635" stroke-opacity="1" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:32s" x="850" y="104" width="250" height="154" rx="12" fill="#a3e635" fill-opacity=".12" stroke="#a3e635" stroke-width="3" filter="url(#glow)"/>
+<circle cx="876" cy="132" r="13" fill="#a3e635"/><text x="876" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">4</text>
+<text x="898" y="138" font-size="16.5" font-weight="700" class="t">Your own emitter</text>
+<text x="898" y="158" font-size="11" letter-spacing=".5" fill="#a3e635" font-weight="600">NEW · CUSTOM</text>
+<text x="863" y="188" class="nw">+ class X extends EventEmitter</text>
+<text x="863" y="205.5" class="nw">+ emit / on / once / off</text>
+<text x="863" y="223" class="nw">+ Pass data as arguments</text>
+<rect x="1125" y="104" width="250" height="154" rx="12" fill="#a3e635" fill-opacity=".07" stroke="#a3e635" stroke-opacity="1" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:40s" x="1125" y="104" width="250" height="154" rx="12" fill="#a3e635" fill-opacity=".12" stroke="#a3e635" stroke-width="3" filter="url(#glow)"/>
+<circle cx="1151" cy="132" r="13" fill="#a3e635"/><text x="1151" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">5</text>
+<text x="1173" y="138" font-size="16.5" font-weight="700" class="t">Rules &amp; gotchas</text>
+<text x="1173" y="158" font-size="11" letter-spacing=".5" fill="#a3e635" font-weight="600">NEW · DETAILS</text>
+<text x="1138" y="188" class="nw">+ Listeners run synchronously</text>
+<text x="1138" y="205.5" class="nw">+ In registration order</text>
+<text x="1138" y="223" class="nw">+ No &apos;error&apos; listener = crash</text>
+<text x="1138" y="240.5" class="nw">+ &gt;10 listeners → warning</text>
+<g class="token"><circle class="ring" r="15" fill="none" stroke="#fff" stroke-width="2"/></g>
+<rect x="25" y="292" width="1350" height="292" rx="14" fill="#0b1224" fill-opacity=".85" stroke="#334155"/>
+<rect x="790" y="308" width="568" height="246" rx="10" fill="#020617" stroke="#1e293b"/>
+<circle cx="808" cy="324" r="4.5" fill="#f87171"/><circle cx="823" cy="324" r="4.5" fill="#fbbf24"/><circle cx="838" cy="324" r="4.5" fill="#4ade80"/>
+<rect x="45" y="566" width="1310" height="4" rx="2" fill="#1e293b"/><rect class="bar" x="45" y="566" width="1310" height="4" rx="2" fill="url(#prog)"/>
+<g class="scene" id="scene0" style="animation-delay:0s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#e2e8f0">OVERVIEW</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">The Event-Driven Architecture</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Many Node objects are event emitters: they emit named events. Listeners subscribe to</text>
+<text x="48" y="400" class="body">an event name and call a callback when it fires.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> This pattern runs through all of Node: servers, streams, sockets and process are all</text>
+<text x="48" y="448" class="body">EventEmitters.</text>
+<text x="48" y="476" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Writing your own EventEmitter, and the rules that trip people up (sync listeners, the</text>
+<text x="48" y="496" class="body">"error" event, max listeners).</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">the pattern</text>
+<text x="808" y="354" class="code" xml:space="preserve"> Event emitter ──emits──► Event listener ──calls──► callback</text>
+<text x="808" y="369.5" class="code" xml:space="preserve"></text>
+<text x="808" y="385" class="code" xml:space="preserve"> new request on 127.0.0.1:8000</text>
+<text x="808" y="400.5" class="code" xml:space="preserve">   → server emits "request"</text>
+<text x="808" y="416" class="code" xml:space="preserve">   → server.on(&apos;request&apos;, ...) is listening</text>
+<text x="808" y="431.5" class="code" xml:space="preserve">   → (req, res) =&gt; { ... } runs</text>
+<text x="808" y="447" class="code" xml:space="preserve">   → browser shows &apos;Request received&apos;</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">1 / 7</text>
+</g>
+<g class="scene" id="scene1" style="animation-delay:8s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#2dd4bf">STEP 1 / 5 · EMITS EVENTS</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Event emitter</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> The http server is an emitter: when a new request reaches 127.0.0.1:8000, it emits a</text>
+<text x="48" y="400" class="body">"request" event.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> The emitter does not know or care who is listening; it just announces "this happened".</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">emitter.js</text>
+<text x="808" y="354" class="code" xml:space="preserve">const http = require(&apos;node:http&apos;);</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">const EventEmitter = require(&apos;node:events&apos;);</text>
+<text x="808" y="385" class="code" xml:space="preserve"></text>
+<text x="808" y="400.5" class="code" xml:space="preserve">const server = http.createServer();</text>
+<text x="808" y="416" class="code" xml:space="preserve">console.log(server instanceof EventEmitter); // true</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">2 / 7</text>
+</g>
+<g class="scene" id="scene2" style="animation-delay:16s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#38bdf8">STEP 2 / 5 · LISTENS</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Event listener</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> server.on(&apos;request&apos;, ...) registers a listener for the "request" event.</text>
+<text x="48" y="408" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Many listeners can listen to the same event, so features stay decoupled.</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">listener.js</text>
+<text x="808" y="354" class="code" xml:space="preserve">server.on(&apos;request&apos;, (req, res) =&gt; {</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">  console.log(&apos;Request received&apos;);</text>
+<text x="808" y="385" class="code" xml:space="preserve">  res.end(&apos;Request received&apos;);</text>
+<text x="808" y="400.5" class="code" xml:space="preserve">});</text>
+<text x="808" y="416" class="code" xml:space="preserve">server.listen(8000, &apos;127.0.0.1&apos;);</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">3 / 7</text>
+</g>
+<g class="scene" id="scene3" style="animation-delay:24s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#818cf8">STEP 3 / 5 · RUNS</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Attached callback</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> When the event fires, the listener calls the attached callback with the event&apos;s data</text>
+<text x="48" y="400" class="body">(here req and res). res.end sends the reply to the browser.</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">terminal</text>
+<text x="808" y="354" class="code" xml:space="preserve">$ curl http://127.0.0.1:8000</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">Request received        ← sent by res.end()</text>
+<text x="808" y="385" class="code" xml:space="preserve"></text>
+<text x="808" y="400.5" class="code" xml:space="preserve"># terminal running the server:</text>
+<text x="808" y="416" class="code" xml:space="preserve">Request received        ← printed by console.log()</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">4 / 7</text>
+</g>
+<g class="scene" id="scene4" style="animation-delay:32s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">STEP 4 / 5 · NEW · CUSTOM</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Your own emitter</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> You can build your own emitters by extending EventEmitter: emit() fires an event, on()</text>
+<text x="48" y="400" class="body">listens, once() listens one time, off() removes a listener.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Great for decoupling: the sales code emits "newSale"; email, stock and analytics code</text>
+<text x="48" y="448" class="body">each listen independently.</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">sales.js</text>
+<text x="808" y="354" class="code" xml:space="preserve">const EventEmitter = require(&apos;node:events&apos;);</text>
+<text x="808" y="369.5" class="code" xml:space="preserve"></text>
+<text x="808" y="385" class="code" xml:space="preserve">class Sales extends EventEmitter {}</text>
+<text x="808" y="400.5" class="code" xml:space="preserve">const sales = new Sales();</text>
+<text x="808" y="416" class="code" xml:space="preserve"></text>
+<text x="808" y="431.5" class="code" xml:space="preserve">sales.on(&apos;newSale&apos;, (qty) =&gt; console.log(&apos;stock -&apos;, qty));</text>
+<text x="808" y="447" class="code" xml:space="preserve">sales.once(&apos;newSale&apos;, () =&gt; console.log(&apos;first sale!&apos;));</text>
+<text x="808" y="462.5" class="code" xml:space="preserve">sales.emit(&apos;newSale&apos;, 9);</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">5 / 7</text>
+</g>
+<g class="scene" id="scene5" style="animation-delay:40s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">STEP 5 / 5 · NEW · DETAILS</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Rules &amp; gotchas</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> emit() calls every listener synchronously, in the order they were added, before emit()</text>
+<text x="48" y="400" class="body">returns. It is not async.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#a3e635">New concept:</tspan> Emitting "error" with no listener throws and crashes the process. More than 10</text>
+<text x="48" y="448" class="body">listeners on one event prints a possible-memory-leak warning.</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">gotchas.js</text>
+<text x="808" y="354" class="code" xml:space="preserve">const e = new EventEmitter();</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">e.on(&apos;x&apos;, () =&gt; console.log(&apos;A&apos;));</text>
+<text x="808" y="385" class="code" xml:space="preserve">e.on(&apos;x&apos;, () =&gt; console.log(&apos;B&apos;));</text>
+<text x="808" y="400.5" class="code" xml:space="preserve">e.emit(&apos;x&apos;); console.log(&apos;C&apos;);      // A, B, C (sync!)</text>
+<text x="808" y="416" class="code" xml:space="preserve"></text>
+<text x="808" y="431.5" class="code" xml:space="preserve">e.on(&apos;error&apos;, (err) =&gt; console.error(err.message));</text>
+<text x="808" y="447" class="code" xml:space="preserve">e.emit(&apos;error&apos;, new Error(&apos;boom&apos;)); // no listener = crash</text>
+<text x="808" y="462.5" class="code" xml:space="preserve">e.setMaxListeners(20);              // default is 10</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">6 / 7</text>
+</g>
+<g class="scene" id="scene6" style="animation-delay:48s">
+<text x="48" y="322" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">RECAP</text>
+<text x="48" y="350" font-size="22" font-weight="800" class="t">Recap + concepts added</text>
+<text x="48" y="380" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Emitter emits → listener hears → callback runs. The http server, streams, sockets and</text>
+<text x="48" y="400" class="body">process all follow this pattern.</text>
+<text x="48" y="428" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Custom EventEmitter classes, once/off, sync listener order, the special "error"</text>
+<text x="48" y="448" class="body">event, max listeners.</text>
+<text x="855" y="328" font-size="11.5" class="m" font-family="Consolas,monospace">everything is an emitter</text>
+<text x="808" y="354" class="code" xml:space="preserve">server.on(&apos;request&apos;, ...)</text>
+<text x="808" y="369.5" class="code" xml:space="preserve">req.on(&apos;data&apos;, ...)</text>
+<text x="808" y="385" class="code" xml:space="preserve">stream.on(&apos;end&apos;, ...)</text>
+<text x="808" y="400.5" class="code" xml:space="preserve">socket.on(&apos;close&apos;, ...)</text>
+<text x="808" y="416" class="code" xml:space="preserve">process.on(&apos;exit&apos;, ...)</text>
+<text x="1355" y="322" font-size="11.5" class="m" text-anchor="end">7 / 7</text>
+</g>
+<rect x="25" y="600" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".05" stroke="#34d399" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:48s" x="25" y="600" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".1" stroke="#34d399" stroke-width="2.5" filter="url(#glow)"/>
+<text x="41" y="628" font-size="15" font-weight="700" fill="#34d399">Remember</text>
+<text x="41" y="654" font-size="12.5" class="b">emit() → listeners → callbacks</text>
+<text x="41" y="674" font-size="12.5" class="b">Streams, servers, process are EventEmitters</text>
+<rect x="481.6666666666667" y="600" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".05" stroke="#f87171" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:48s" x="481.6666666666667" y="600" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".1" stroke="#f87171" stroke-width="2.5" filter="url(#glow)"/>
+<text x="497.6666666666667" y="628" font-size="15" font-weight="700" fill="#f87171">Common mistake</text>
+<text x="497.6666666666667" y="654" font-size="12.5" class="b">Forgetting an &apos;error&apos; listener</text>
+<text x="497.6666666666667" y="674" font-size="12.5" class="b">→ unhandled error crashes the process</text>
+<rect x="938.3333333333334" y="600" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".05" stroke="#fbbf24" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:48s" x="938.3333333333334" y="600" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".1" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+<text x="954.3333333333334" y="628" font-size="15" font-weight="700" fill="#fbbf24">Interview question</text>
+<text x="954.3333333333334" y="654" font-size="12.5" class="b">Q: Are EventEmitter listeners sync or async?</text>
+<text x="954.3333333333334" y="674" font-size="12.5" class="b">A: Sync, in the order they were registered</text>
+</svg>

@@ -1,0 +1,271 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 962" width="1400" height="962" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+<title>The Event Loop in Detail</title>
+<desc>Auto-playing 72s step-by-step explainer of "The Event Loop in Detail" (from img_8.png). Each step is highlighted in turn with what happens, why it matters, missing concepts added in lime, and a Node.js code example. Hover to pause.</desc>
+<style>
+.scene,.hl{opacity:0;animation:show 72s linear infinite}
+@keyframes show{0%{opacity:0}0.694%{opacity:1}10.417%{opacity:1}11.111%{opacity:0}100%{opacity:0}}
+@keyframes tok{0%{transform:translate(51px,132px)}11.111%{transform:translate(51px,132px)}12.500%{transform:translate(51px,132px)}22.222%{transform:translate(51px,132px)}23.611%{transform:translate(394.75px,132px)}33.333%{transform:translate(394.75px,132px)}34.722%{transform:translate(738.5px,132px)}44.444%{transform:translate(738.5px,132px)}45.833%{transform:translate(1082.25px,132px)}55.556%{transform:translate(1082.25px,132px)}56.944%{transform:translate(1082.25px,336px)}66.667%{transform:translate(1082.25px,336px)}68.056%{transform:translate(738.5px,336px)}77.778%{transform:translate(738.5px,336px)}79.167%{transform:translate(394.75px,336px)}88.889%{transform:translate(394.75px,336px)}90.278%{transform:translate(51px,132px)}100%{transform:translate(51px,132px)}}
+@keyframes flow{to{stroke-dashoffset:-16}}
+@keyframes pulse{0%,100%{r:15;opacity:.9}50%{r:21;opacity:.35}}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.token{animation:tok 72s ease-in-out infinite}
+.token .ring{animation:pulse 1.4s ease-in-out infinite}
+.flow{stroke-dasharray:8 8;animation:flow .8s linear infinite}
+.bar{transform-box:fill-box;transform-origin:left;animation:bar 72s linear infinite}
+svg:hover *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#scene0{opacity:1}}
+.t{fill:#e2e8f0}.m{fill:#94a3b8}.b{font-size:12.5px;fill:#cbd5e1}.nw{font-size:12.5px;fill:#a3e635;font-weight:600}
+.code{font-family:'Cascadia Code',Consolas,ui-monospace,monospace;font-size:12.5px;fill:#e2e8f0;white-space:pre}
+.body{font-size:14.5px;fill:#cbd5e1}.lbl{font-weight:700}
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1224"/><stop offset="1" stop-color="#0f1f1a"/></linearGradient>
+<linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#5fa04e"/><stop offset=".5" stop-color="#22d3ee"/><stop offset="1" stop-color="#a3e635"/></linearGradient>
+<filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker>
+<marker id="arp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker>
+</defs>
+<rect width="1400" height="962" fill="#070b16"/><rect x="6" y="6" width="1388" height="950" rx="22" fill="url(#bg)" stroke="#1f4d3a"/>
+<polygon points="44,28 60,37 60,55 44,64 28,55 28,37" fill="#5fa04e"/><text x="44" y="51" font-size="12" font-weight="800" fill="#0b1224" text-anchor="middle">08</text>
+<text x="74" y="54" font-size="28" font-weight="800" class="t">The Event Loop in Detail</text>
+<text x="30" y="84" font-size="14" class="m">The phases of one loop tick, the callback queue in each phase, and the microtask queues that run in between</text>
+<g font-size="12.5" class="m"><circle cx="1170" cy="44" r="9" fill="none" stroke="#fff" stroke-width="2"/><text x="1186" y="48">current step</text>
+<text x="1160" y="74" fill="#a3e635" font-weight="700">+ added concept</text><text x="1290" y="74">· hover = pause</text></g>
+<line x1="346.75" y1="181" x2="363.75" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="690.5" y1="181" x2="707.5" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1034.25" y1="181" x2="1051.25" y2="181" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1215.625" y1="262" x2="1215.625" y2="302" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="1053.25" y1="385" x2="1036.25" y2="385" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<line x1="709.5" y1="385" x2="692.5" y2="385" stroke="#94a3b8" stroke-width="2" class="flow" marker-end="url(#ar)"/>
+<path d="M528.125 466 V492 H14 V181 H19" fill="none" stroke="#f472b6" stroke-width="2" class="flow" marker-end="url(#arp)"/>
+<text x="40" y="512" font-size="12.5" fill="#f472b6" font-weight="600" text-anchor="start">↻ any pending timers or I/O? YES → next loop tick · NO → exit program</text>
+<rect x="25" y="104" width="318.75" height="154" rx="12" fill="#fbbf24" fill-opacity=".07" stroke="#fbbf24" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:8s" x="25" y="104" width="318.75" height="154" rx="12" fill="#fbbf24" fill-opacity=".12" stroke="#fbbf24" stroke-width="3" filter="url(#glow)"/>
+<circle cx="51" cy="132" r="13" fill="#fbbf24"/><text x="51" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">1</text>
+<text x="73" y="138" font-size="16.5" font-weight="700" class="t">Expired timers</text>
+<text x="73" y="158" font-size="11" letter-spacing=".5" fill="#fbbf24" font-weight="600">PHASE 1</text>
+<circle cx="43" cy="184" r="2.6" fill="#fbbf24"/>
+<text x="53" y="188" class="b">setTimeout callbacks</text>
+<circle cx="43" cy="201.5" r="2.6" fill="#fbbf24"/>
+<text x="53" y="205.5" class="b">setInterval callbacks</text>
+<circle cx="43" cy="219" r="2.6" fill="#fbbf24"/>
+<text x="53" y="223" class="b">Only the expired ones</text>
+<rect x="368.75" y="104" width="318.75" height="154" rx="12" fill="#a3e635" fill-opacity=".07" stroke="#a3e635" stroke-opacity="1" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:16s" x="368.75" y="104" width="318.75" height="154" rx="12" fill="#a3e635" fill-opacity=".12" stroke="#a3e635" stroke-width="3" filter="url(#glow)"/>
+<circle cx="394.75" cy="132" r="13" fill="#a3e635"/><text x="394.75" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">2</text>
+<text x="416.75" y="138" font-size="16.5" font-weight="700" class="t">Pending callbacks</text>
+<text x="416.75" y="158" font-size="11" letter-spacing=".5" fill="#a3e635" font-weight="600">NEW · PHASE 2</text>
+<text x="381.75" y="188" class="nw">+ Deferred system errors</text>
+<text x="381.75" y="205.5" class="nw">+ e.g. ECONNREFUSED</text>
+<text x="381.75" y="223" class="nw">+ Plus idle/prepare (internal)</text>
+<rect x="712.5" y="104" width="318.75" height="154" rx="12" fill="#38bdf8" fill-opacity=".07" stroke="#38bdf8" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:24s" x="712.5" y="104" width="318.75" height="154" rx="12" fill="#38bdf8" fill-opacity=".12" stroke="#38bdf8" stroke-width="3" filter="url(#glow)"/>
+<circle cx="738.5" cy="132" r="13" fill="#38bdf8"/><text x="738.5" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">3</text>
+<text x="760.5" y="138" font-size="16.5" font-weight="700" class="t">I/O polling</text>
+<text x="760.5" y="158" font-size="11" letter-spacing=".5" fill="#38bdf8" font-weight="600">PHASE 3</text>
+<circle cx="730.5" cy="184" r="2.6" fill="#38bdf8"/>
+<text x="740.5" y="188" class="b">I/O callbacks: fs, network</text>
+<circle cx="730.5" cy="201.5" r="2.6" fill="#38bdf8"/>
+<text x="740.5" y="205.5" class="b">Waits here if idle</text>
+<circle cx="730.5" cy="219" r="2.6" fill="#38bdf8"/>
+<text x="740.5" y="223" class="b">Most of your code runs here</text>
+<rect x="1056.25" y="104" width="318.75" height="154" rx="12" fill="#818cf8" fill-opacity=".07" stroke="#818cf8" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:32s" x="1056.25" y="104" width="318.75" height="154" rx="12" fill="#818cf8" fill-opacity=".12" stroke="#818cf8" stroke-width="3" filter="url(#glow)"/>
+<circle cx="1082.25" cy="132" r="13" fill="#818cf8"/><text x="1082.25" y="136.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">4</text>
+<text x="1104.25" y="138" font-size="16.5" font-weight="700" class="t">setImmediate</text>
+<text x="1104.25" y="158" font-size="11" letter-spacing=".5" fill="#818cf8" font-weight="600">PHASE 4 · CHECK</text>
+<circle cx="1074.25" cy="184" r="2.6" fill="#818cf8"/>
+<text x="1084.25" y="188" class="b">setImmediate callbacks</text>
+<circle cx="1074.25" cy="201.5" r="2.6" fill="#818cf8"/>
+<text x="1084.25" y="205.5" class="b">Right after the poll phase</text>
+<rect x="1056.25" y="308" width="318.75" height="154" rx="12" fill="#c084fc" fill-opacity=".07" stroke="#c084fc" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:40s" x="1056.25" y="308" width="318.75" height="154" rx="12" fill="#c084fc" fill-opacity=".12" stroke="#c084fc" stroke-width="3" filter="url(#glow)"/>
+<circle cx="1082.25" cy="336" r="13" fill="#c084fc"/><text x="1082.25" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">5</text>
+<text x="1104.25" y="342" font-size="16.5" font-weight="700" class="t">Close callbacks</text>
+<text x="1104.25" y="362" font-size="11" letter-spacing=".5" fill="#c084fc" font-weight="600">PHASE 5</text>
+<circle cx="1074.25" cy="388" r="2.6" fill="#c084fc"/>
+<text x="1084.25" y="392" class="b">socket.on(&apos;close&apos;)</text>
+<circle cx="1074.25" cy="405.5" r="2.6" fill="#c084fc"/>
+<text x="1084.25" y="409.5" class="b">Cleanup handlers</text>
+<rect x="712.5" y="308" width="318.75" height="154" rx="12" fill="#fbbf24" fill-opacity=".07" stroke="#fbbf24" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:48s" x="712.5" y="308" width="318.75" height="154" rx="12" fill="#fbbf24" fill-opacity=".12" stroke="#fbbf24" stroke-width="3" filter="url(#glow)"/>
+<circle cx="738.5" cy="336" r="13" fill="#fbbf24"/><text x="738.5" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">6</text>
+<text x="760.5" y="342" font-size="16.5" font-weight="700" class="t">Microtask queues</text>
+<text x="760.5" y="362" font-size="11" letter-spacing=".5" fill="#fbbf24" font-weight="600">AFTER EVERY CALLBACK</text>
+<circle cx="730.5" cy="388" r="2.6" fill="#fbbf24"/>
+<text x="740.5" y="392" class="b">process.nextTick() queue</text>
+<circle cx="730.5" cy="405.5" r="2.6" fill="#fbbf24"/>
+<text x="740.5" y="409.5" class="b">Then promise queue</text>
+<text x="725.5" y="427" class="nw">+ After EVERY callback</text>
+<text x="725.5" y="444.5" class="nw">+ Can starve the loop</text>
+<rect x="368.75" y="308" width="318.75" height="154" rx="12" fill="#2dd4bf" fill-opacity=".07" stroke="#2dd4bf" stroke-opacity="0.55" stroke-width="1.5"/>
+<rect class="hl" style="animation-delay:56s" x="368.75" y="308" width="318.75" height="154" rx="12" fill="#2dd4bf" fill-opacity=".12" stroke="#2dd4bf" stroke-width="3" filter="url(#glow)"/>
+<circle cx="394.75" cy="336" r="13" fill="#2dd4bf"/><text x="394.75" y="340.5" text-anchor="middle" font-size="13" font-weight="800" fill="#0b1224">7</text>
+<text x="416.75" y="342" font-size="16.5" font-weight="700" class="t">Pending timers or I/O?</text>
+<text x="416.75" y="362" font-size="11" letter-spacing=".5" fill="#2dd4bf" font-weight="600">DECISION</text>
+<circle cx="386.75" cy="388" r="2.6" fill="#2dd4bf"/>
+<text x="396.75" y="392" class="b">YES → run another tick</text>
+<circle cx="386.75" cy="405.5" r="2.6" fill="#2dd4bf"/>
+<text x="396.75" y="409.5" class="b">NO → exit program</text>
+<text x="381.75" y="427" class="nw">+ unref() = don&apos;t wait</text>
+<g class="token"><circle class="ring" r="15" fill="none" stroke="#fff" stroke-width="2"/></g>
+<rect x="25" y="536" width="1350" height="292" rx="14" fill="#0b1224" fill-opacity=".85" stroke="#334155"/>
+<rect x="790" y="552" width="568" height="246" rx="10" fill="#020617" stroke="#1e293b"/>
+<circle cx="808" cy="568" r="4.5" fill="#f87171"/><circle cx="823" cy="568" r="4.5" fill="#fbbf24"/><circle cx="838" cy="568" r="4.5" fill="#4ade80"/>
+<rect x="45" y="810" width="1310" height="4" rx="2" fill="#1e293b"/><rect class="bar" x="45" y="810" width="1310" height="4" rx="2" fill="url(#prog)"/>
+<g class="scene" id="scene0" style="animation-delay:0s">
+<text x="48" y="566" font-size="12" font-weight="700" letter-spacing="1.5" fill="#e2e8f0">OVERVIEW</text>
+<text x="48" y="594" font-size="22" font-weight="800" class="t">The Event Loop in Detail</text>
+<text x="48" y="624" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Each loop tick goes through phases in a fixed order, and each phase has its own</text>
+<text x="48" y="644" class="body">callback queue: expired timers → I/O polling → setImmediate → close callbacks.</text>
+<text x="48" y="672" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> This order decides which callback runs first: a favourite interview puzzle.</text>
+<text x="48" y="700" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> The real libuv order has a "pending callbacks" phase the slide skips, and microtasks</text>
+<text x="48" y="720" class="body">run after EVERY callback (Node 11+), not only between phases.</text>
+<text x="855" y="572" font-size="11.5" class="m" font-family="Consolas,monospace">one tick of the loop</text>
+<text x="808" y="598" class="code" xml:space="preserve">   ┌──► timers          setTimeout, setInterval</text>
+<text x="808" y="613.5" class="code" xml:space="preserve">   │    pending         deferred system errors</text>
+<text x="808" y="629" class="code" xml:space="preserve">   │    idle, prepare   (internal)</text>
+<text x="808" y="644.5" class="code" xml:space="preserve">   │    poll            I/O callbacks (waits here)</text>
+<text x="808" y="660" class="code" xml:space="preserve">   │    check           setImmediate</text>
+<text x="808" y="675.5" class="code" xml:space="preserve">   │    close           socket.on(&apos;close&apos;)</text>
+<text x="808" y="691" class="code" xml:space="preserve">   └─── pending work? ── no ──► exit</text>
+<text x="808" y="706.5" class="code" xml:space="preserve"></text>
+<text x="808" y="722" class="code" xml:space="preserve"> * nextTick queue, then promise queue,</text>
+<text x="808" y="737.5" class="code" xml:space="preserve">   after EVERY single callback</text>
+<text x="1355" y="566" font-size="11.5" class="m" text-anchor="end">1 / 9</text>
+</g>
+<g class="scene" id="scene1" style="animation-delay:8s">
+<text x="48" y="566" font-size="12" font-weight="700" letter-spacing="1.5" fill="#fbbf24">STEP 1 / 7 · PHASE 1</text>
+<text x="48" y="594" font-size="22" font-weight="800" class="t">Expired timers</text>
+<text x="48" y="624" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> First, callbacks of timers whose time is up (setTimeout, setInterval). A 100 ms timer</text>
+<text x="48" y="644" class="body">is a minimum delay, not an exact one.</text>
+<text x="48" y="672" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Timers vs setImmediate order is NOT guaranteed in the main module, but inside an I/O</text>
+<text x="48" y="692" class="body">callback setImmediate always wins.</text>
+<text x="855" y="572" font-size="11.5" class="m" font-family="Consolas,monospace">timers-vs-immediate.js</text>
+<text x="808" y="598" class="code" xml:space="preserve">setTimeout(() =&gt; console.log(&apos;timeout&apos;), 0);</text>
+<text x="808" y="613.5" class="code" xml:space="preserve">setImmediate(() =&gt; console.log(&apos;immediate&apos;));</text>
+<text x="808" y="629" class="code" xml:space="preserve">// from main module: order NOT guaranteed</text>
+<text x="808" y="644.5" class="code" xml:space="preserve"></text>
+<text x="808" y="660" class="code" xml:space="preserve">fs.readFile(__filename, () =&gt; {</text>
+<text x="808" y="675.5" class="code" xml:space="preserve">  setTimeout(() =&gt; console.log(&apos;timeout&apos;), 0);</text>
+<text x="808" y="691" class="code" xml:space="preserve">  setImmediate(() =&gt; console.log(&apos;immediate&apos;));</text>
+<text x="808" y="706.5" class="code" xml:space="preserve">}); // inside I/O: &apos;immediate&apos; ALWAYS first</text>
+<text x="1355" y="566" font-size="11.5" class="m" text-anchor="end">2 / 9</text>
+</g>
+<g class="scene" id="scene2" style="animation-delay:16s">
+<text x="48" y="566" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">STEP 2 / 7 · NEW · PHASE 2</text>
+<text x="48" y="594" font-size="22" font-weight="800" class="t">Pending callbacks</text>
+<text x="48" y="624" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Some I/O callbacks are deferred to the next tick, e.g. some TCP errors. libuv also has</text>
+<text x="48" y="644" class="body">internal idle/prepare phases here.</text>
+<text x="48" y="672" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> The slide simplifies this away; you rarely touch it, but it completes the real phase</text>
+<text x="48" y="692" class="body">order.</text>
+<text x="855" y="572" font-size="11.5" class="m" font-family="Consolas,monospace">pending.js</text>
+<text x="808" y="598" class="code" xml:space="preserve">const net = require(&apos;node:net&apos;);</text>
+<text x="808" y="613.5" class="code" xml:space="preserve">net.connect(9999)              // nothing listens on 9999</text>
+<text x="808" y="629" class="code" xml:space="preserve">  .on(&apos;error&apos;, (e) =&gt; console.log(e.code)); // ECONNREFUSED</text>
+<text x="808" y="644.5" class="code" xml:space="preserve"></text>
+<text x="808" y="660" class="code" xml:space="preserve">// real order: timers → pending → idle/prepare</text>
+<text x="808" y="675.5" class="code" xml:space="preserve">//             → poll → check → close</text>
+<text x="1355" y="566" font-size="11.5" class="m" text-anchor="end">3 / 9</text>
+</g>
+<g class="scene" id="scene3" style="animation-delay:24s">
+<text x="48" y="566" font-size="12" font-weight="700" letter-spacing="1.5" fill="#38bdf8">STEP 3 / 7 · PHASE 3</text>
+<text x="48" y="594" font-size="22" font-weight="800" class="t">I/O polling</text>
+<text x="48" y="624" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Polls for new I/O events and runs their callbacks: finished file reads, incoming data</text>
+<text x="48" y="644" class="body">on sockets. 99% of app code runs here.</text>
+<text x="48" y="672" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> When nothing else is due, the loop blocks here waiting for I/O, using zero CPU.</text>
+<text x="855" y="572" font-size="11.5" class="m" font-family="Consolas,monospace">poll.js</text>
+<text x="808" y="598" class="code" xml:space="preserve">fs.readFile(&apos;data.json&apos;, (err, buf) =&gt; { /* poll */ });</text>
+<text x="808" y="613.5" class="code" xml:space="preserve">req.on(&apos;data&apos;, (chunk) =&gt; { /* poll */ });</text>
+<text x="808" y="629" class="code" xml:space="preserve"></text>
+<text x="808" y="644.5" class="code" xml:space="preserve">// no timers due + no setImmediate queued</text>
+<text x="808" y="660" class="code" xml:space="preserve">// → the loop waits here for I/O (no CPU used)</text>
+<text x="1355" y="566" font-size="11.5" class="m" text-anchor="end">4 / 9</text>
+</g>
+<g class="scene" id="scene4" style="animation-delay:32s">
+<text x="48" y="566" font-size="12" font-weight="700" letter-spacing="1.5" fill="#818cf8">STEP 4 / 7 · PHASE 4 · CHECK</text>
+<text x="48" y="594" font-size="22" font-weight="800" class="t">setImmediate</text>
+<text x="48" y="624" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> setImmediate callbacks run right after the poll phase of the current tick.</text>
+<text x="48" y="652" class="body"><tspan class="lbl" fill="#e2e8f0">Why:</tspan> Use it to run something right after the current I/O batch, without waiting for the</text>
+<text x="48" y="672" class="body">timers phase.</text>
+<text x="855" y="572" font-size="11.5" class="m" font-family="Consolas,monospace">check.js</text>
+<text x="808" y="598" class="code" xml:space="preserve">setImmediate(() =&gt; console.log(&apos;check phase&apos;));</text>
+<text x="808" y="613.5" class="code" xml:space="preserve"></text>
+<text x="808" y="629" class="code" xml:space="preserve">// "immediate" is a misleading name:</text>
+<text x="808" y="644.5" class="code" xml:space="preserve">// it runs in the check phase, after I/O polling</text>
+<text x="1355" y="566" font-size="11.5" class="m" text-anchor="end">5 / 9</text>
+</g>
+<g class="scene" id="scene5" style="animation-delay:40s">
+<text x="48" y="566" font-size="12" font-weight="700" letter-spacing="1.5" fill="#c084fc">STEP 5 / 7 · PHASE 5</text>
+<text x="48" y="594" font-size="22" font-weight="800" class="t">Close callbacks</text>
+<text x="48" y="624" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Close events, like a socket or server closing, run last in the tick.</text>
+<text x="855" y="572" font-size="11.5" class="m" font-family="Consolas,monospace">close.js</text>
+<text x="808" y="598" class="code" xml:space="preserve">const net = require(&apos;node:net&apos;);</text>
+<text x="808" y="613.5" class="code" xml:space="preserve">net.createServer((socket) =&gt; {</text>
+<text x="808" y="629" class="code" xml:space="preserve">  socket.on(&apos;close&apos;, () =&gt; console.log(&apos;client left&apos;));</text>
+<text x="808" y="644.5" class="code" xml:space="preserve">}).listen(4000);</text>
+<text x="1355" y="566" font-size="11.5" class="m" text-anchor="end">6 / 9</text>
+</g>
+<g class="scene" id="scene6" style="animation-delay:48s">
+<text x="48" y="566" font-size="12" font-weight="700" letter-spacing="1.5" fill="#fbbf24">STEP 6 / 7 · AFTER EVERY CALLBACK</text>
+<text x="48" y="594" font-size="22" font-weight="800" class="t">Microtask queues</text>
+<text x="48" y="624" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> Two special queues run as soon as the current callback ends: first all</text>
+<text x="48" y="644" class="body">process.nextTick callbacks, then all resolved-promise callbacks.</text>
+<text x="48" y="672" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Since Node 11 they run after every single callback, not only between phases. A</text>
+<text x="48" y="692" class="body">recursive nextTick never lets the loop move on.</text>
+<text x="855" y="572" font-size="11.5" class="m" font-family="Consolas,monospace">priority.js</text>
+<text x="808" y="598" class="code" xml:space="preserve">setTimeout(() =&gt; console.log(&apos;4 timeout&apos;), 0);</text>
+<text x="808" y="613.5" class="code" xml:space="preserve">Promise.resolve().then(() =&gt; console.log(&apos;3 promise&apos;));</text>
+<text x="808" y="629" class="code" xml:space="preserve">process.nextTick(() =&gt; console.log(&apos;2 nextTick&apos;));</text>
+<text x="808" y="644.5" class="code" xml:space="preserve">console.log(&apos;1 sync&apos;);</text>
+<text x="808" y="660" class="code" xml:space="preserve"></text>
+<text x="808" y="675.5" class="code" xml:space="preserve">// 1 sync → 2 nextTick → 3 promise → 4 timeout</text>
+<text x="1355" y="566" font-size="11.5" class="m" text-anchor="end">7 / 9</text>
+</g>
+<g class="scene" id="scene7" style="animation-delay:56s">
+<text x="48" y="566" font-size="12" font-weight="700" letter-spacing="1.5" fill="#2dd4bf">STEP 7 / 7 · DECISION</text>
+<text x="48" y="594" font-size="22" font-weight="800" class="t">Pending timers or I/O?</text>
+<text x="48" y="624" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> After the close phase Node checks for pending timers or I/O. Yes → another tick. No →</text>
+<text x="48" y="644" class="body">the program exits.</text>
+<text x="48" y="672" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> unref() tells Node not to stay alive just for that timer or socket.</text>
+<text x="855" y="572" font-size="11.5" class="m" font-family="Consolas,monospace">exit.js</text>
+<text x="808" y="598" class="code" xml:space="preserve">const t = setInterval(() =&gt; {}, 1000);</text>
+<text x="808" y="613.5" class="code" xml:space="preserve">t.unref();   // don&apos;t keep the process alive for this</text>
+<text x="808" y="629" class="code" xml:space="preserve"></text>
+<text x="808" y="644.5" class="code" xml:space="preserve">process.on(&apos;exit&apos;, () =&gt; console.log(&apos;loop finished&apos;));</text>
+<text x="808" y="660" class="code" xml:space="preserve">// nothing pending → exits right away</text>
+<text x="1355" y="566" font-size="11.5" class="m" text-anchor="end">8 / 9</text>
+</g>
+<g class="scene" id="scene8" style="animation-delay:64s">
+<text x="48" y="566" font-size="12" font-weight="700" letter-spacing="1.5" fill="#a3e635">RECAP</text>
+<text x="48" y="594" font-size="22" font-weight="800" class="t">Recap + concepts added</text>
+<text x="48" y="624" class="body"><tspan class="lbl" fill="#e2e8f0">What:</tspan> timers → pending → poll (I/O) → check (setImmediate) → close → repeat or exit.</text>
+<text x="48" y="644" class="body">nextTick and promise microtasks squeeze in after every callback.</text>
+<text x="48" y="672" class="body"><tspan class="lbl" fill="#a3e635">Added:</tspan> Pending-callbacks phase, idle/prepare, microtasks after every callback, setTimeout vs</text>
+<text x="48" y="692" class="body">setImmediate rules, unref().</text>
+<text x="855" y="572" font-size="11.5" class="m" font-family="Consolas,monospace">final puzzle</text>
+<text x="808" y="598" class="code" xml:space="preserve">fs.readFile(__filename, () =&gt; {</text>
+<text x="808" y="613.5" class="code" xml:space="preserve">  setTimeout(() =&gt; console.log(&apos;timeout&apos;));</text>
+<text x="808" y="629" class="code" xml:space="preserve">  setImmediate(() =&gt; console.log(&apos;immediate&apos;));</text>
+<text x="808" y="644.5" class="code" xml:space="preserve">  process.nextTick(() =&gt; console.log(&apos;nextTick&apos;));</text>
+<text x="808" y="660" class="code" xml:space="preserve">});</text>
+<text x="808" y="675.5" class="code" xml:space="preserve"></text>
+<text x="808" y="691" class="code" xml:space="preserve">// nextTick → immediate → timeout</text>
+<text x="1355" y="566" font-size="11.5" class="m" text-anchor="end">9 / 9</text>
+</g>
+<rect x="25" y="844" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".05" stroke="#34d399" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:64s" x="25" y="844" width="436.6666666666667" height="96" rx="12" fill="#34d399" fill-opacity=".1" stroke="#34d399" stroke-width="2.5" filter="url(#glow)"/>
+<text x="41" y="872" font-size="15" font-weight="700" fill="#34d399">Remember</text>
+<text x="41" y="898" font-size="12.5" class="b">nextTick → promises → timers / immediate</text>
+<text x="41" y="918" font-size="12.5" class="b">Phases: timers, pending, poll, check, close</text>
+<rect x="481.6666666666667" y="844" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".05" stroke="#f87171" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:64s" x="481.6666666666667" y="844" width="436.6666666666667" height="96" rx="12" fill="#f87171" fill-opacity=".1" stroke="#f87171" stroke-width="2.5" filter="url(#glow)"/>
+<text x="497.6666666666667" y="872" font-size="15" font-weight="700" fill="#f87171">Common mistake</text>
+<text x="497.6666666666667" y="898" font-size="12.5" class="b">Thinking nextTick runs on the "next tick"</text>
+<text x="497.6666666666667" y="918" font-size="12.5" class="b">→ it runs before the loop moves on at all</text>
+<rect x="938.3333333333334" y="844" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".05" stroke="#fbbf24" stroke-dasharray="6 4"/>
+<rect class="hl" style="animation-delay:64s" x="938.3333333333334" y="844" width="436.6666666666667" height="96" rx="12" fill="#fbbf24" fill-opacity=".1" stroke="#fbbf24" stroke-width="2.5" filter="url(#glow)"/>
+<text x="954.3333333333334" y="872" font-size="15" font-weight="700" fill="#fbbf24">Interview question</text>
+<text x="954.3333333333334" y="898" font-size="12.5" class="b">Q: setTimeout(0) vs setImmediate vs nextTick?</text>
+<text x="954.3333333333334" y="918" font-size="12.5" class="b">A: nextTick first; inside I/O immediate first</text>
+</svg>
